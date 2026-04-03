@@ -1,0 +1,1053 @@
+/* ============================================================
+   1. GLOBAL & FONTS
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Prompt:wght@100;300;400;600;900&display=swap');
+
+:root { 
+    --gold: #c3a469; 
+    --black: #050505; 
+    --orange-glow: #ff5e00;
+    --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+body, html { 
+    margin: 0; 
+    padding: 0; 
+    overflow: hidden; 
+    background: var(--black); 
+    color: #fff; 
+    font-family: 'Prompt', sans-serif; 
+}
+
+/* ป้องกันการ Scroll เมื่อเปิด Modal */
+body:has(.modal-overlay) { 
+    overflow: hidden !important; 
+    touch-action: none; 
+}
+
+/* ============================================================
+   2. LANDING SCREEN
+   ============================================================ */
+.landing-screen { 
+    position: fixed; 
+    inset: 0; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 2000; 
+    background: #050505; 
+    transition: 1.6s var(--transition-smooth);
+}
+
+.landing-screen.started { 
+    opacity: 0; 
+    transform: scale(1.1); 
+    pointer-events: none; 
+}
+
+.pl-parallax-container { 
+    position: absolute; 
+    inset: 0; 
+    pointer-events: none; 
+    overflow: hidden; 
+    z-index: 1; 
+    background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); 
+}
+
+.pl-floating-plate-unit { 
+    position: absolute; 
+    will-change: transform; 
+    transition: transform 0.5s var(--transition-smooth);
+    pointer-events: auto; 
+}
+
+.pl-ceramic-plate { 
+    background-size: cover; 
+    background-position: center; 
+    border-radius: 50%; 
+    border: 10px solid #fdfdfd; 
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.3), 0 40px 80px rgba(0,0,0,0.9); 
+    position: relative; 
+    overflow: hidden;
+    filter: blur(10px); 
+    transition: filter 0.6s ease, transform 0.6s ease;
+    cursor: pointer;
+}
+
+.pl-ceramic-plate:hover {
+    filter: blur(0px); 
+    transform: scale(1.05); 
+}
+
+.v2-blob-shape { 
+    position: absolute; 
+    width: 65vw; 
+    height: 65vw; 
+    background: radial-gradient(circle, rgba(195, 164, 105, 0.05) 0%, transparent 70%); 
+    border-radius: 50%; 
+    filter: blur(90px); 
+    z-index: -1; 
+}
+
+.hero-box-v2 { 
+    position: relative; 
+    z-index: 2100; 
+    text-align: center; 
+    max-width: 90vw; 
+    pointer-events: none; 
+}
+
+.hero-header-meta { 
+    letter-spacing: 15px; 
+    font-size: 0.75rem; 
+    color: var(--gold); 
+    margin-bottom: 25px; 
+    opacity: 0.9; 
+}
+
+.v2-title-mid { 
+    font-size: clamp(3rem, 12vw, 9rem); 
+    font-weight: 900; 
+    background: linear-gradient(180deg, #f0d7a7 0%, #c3a469 50%, #8a6d3b 100%); 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    line-height: 0.85; 
+    letter-spacing: -2px; 
+}
+
+.v2-title-top { 
+    font-family: 'Playfair Display', serif; 
+    letter-spacing: 20px; 
+    font-style: italic; 
+    font-size: 1.1rem; 
+    color: rgba(255,255,255,0.8); 
+    display: block; 
+    margin-bottom: 10px; 
+}
+
+.hero-separator-v3 { 
+    width: 60px; 
+    height: 2px; 
+    background: var(--gold); 
+    margin: 35px auto; 
+}
+
+.hero-tag-v2 { 
+    max-width: 500px; 
+    line-height: 1.8; 
+    letter-spacing: 2px; 
+    opacity: 0.6; 
+    text-transform: uppercase; 
+    font-size: 0.7rem; 
+    margin: 0 auto; 
+}
+
+.scroll-explorer-v2 { 
+    margin-top: 50px; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px; 
+}
+
+.scroll-text-v2 { 
+    font-size: 0.6rem; 
+    letter-spacing: 7px; 
+    color: var(--gold); 
+    opacity: 0.5; 
+}
+
+.scroll-line-v2 { 
+    width: 1px; 
+    height: 60px; 
+    background: rgba(195, 164, 105, 0.15); 
+    position: relative; 
+    overflow: hidden; 
+}
+
+.scroll-line-v2::after { 
+    content: ''; 
+    position: absolute; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 30%; 
+    background: var(--gold); 
+    animation: v2-scroll 2s infinite ease-in-out; 
+}
+
+@keyframes v2-scroll {
+    0% { transform: translateY(-100%); }
+    100% { transform: translateY(400%); }
+}
+
+/* ============================================================
+   3. EXPERIENCE VIEW
+   ============================================================ */
+.experience-view { 
+    opacity: 0; 
+    transition: 1.5s ease; 
+    position: relative; 
+    width: 100vw; 
+    height: 100vh; 
+    background: radial-gradient(circle at center, #2e1a05 0%, #140a00 50%, #050505 100%);
+    z-index: 100;
+}
+
+.experience-view.visible { 
+    opacity: 1; 
+}
+
+.canvas-container { 
+    position: absolute; 
+    inset: 0; 
+    z-index: 2; 
+}
+
+.dish-ambient-shadow {
+    position: absolute; 
+    top: 65%; 
+    left: 50%; 
+    transform: translate(-50%, -50%);
+    width: 700px; 
+    height: 700px; 
+    background: rgba(0, 0, 0, 0.5); 
+    filter: blur(160px); 
+    z-index: 1; 
+    pointer-events: none;
+}
+
+.main-ui-overlay-v2 {
+    position: absolute; 
+    inset: 0; 
+    z-index: 100; 
+    display: flex; 
+    flex-direction: column; 
+    justify-content: flex-start; 
+    padding: 60px; 
+    pointer-events: none;
+}
+
+.ui-top-meta {
+    font-size: 0.65rem; 
+    letter-spacing: 5px; 
+    color: var(--gold); 
+    text-transform: uppercase; 
+    text-align: center; 
+    opacity: 0.8; 
+    margin-bottom: 20px;
+}
+
+.ui-mid-content {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    width: 100%; 
+    margin-top: 40px;
+}
+
+.dish-info-main { 
+    text-align: center; 
+    flex: 1; 
+    transform: translateY(-20px); 
+}
+
+.collection-count { 
+    font-size: 0.7rem; 
+    letter-spacing: 4px; 
+    color: var(--gold); 
+    display: block; 
+    margin-bottom: 15px; 
+}
+
+.v2-dish-name {
+    font-family: 'Playfair Display', serif; 
+    font-size: clamp(2.5rem, 6.5vw, 4.5rem);
+    font-weight: 900; 
+    line-height: 1.1; 
+    text-transform: uppercase;
+    background: linear-gradient(180deg, #fff 40%, var(--gold) 100%);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent;
+}
+
+.v2-dish-sub {
+    font-family: 'Playfair Display', serif; 
+    font-style: italic; 
+    font-size: 1.5rem;
+    color: var(--gold); 
+    margin: 10px 0;
+}
+
+.v2-separator { 
+    width: 40px; 
+    height: 2px; 
+    background: var(--gold); 
+    margin: 25px auto; 
+}
+
+.ui-bottom-bar { 
+    margin-top: auto; 
+    display: flex; 
+    justify-content: center; 
+    padding-bottom: 20px; 
+}
+
+.v2-explore-btn {
+    pointer-events: auto; 
+    background: #fff; 
+    color: #000; 
+    border: none;
+    padding: 20px 50px; 
+    font-weight: 600; 
+    letter-spacing: 4px; 
+    font-size: 0.7rem;
+    cursor: pointer; 
+    transition: 0.4s; 
+    text-transform: uppercase;
+}
+
+.v2-explore-btn:hover {
+    background: var(--orange-glow); 
+    color: #fff; 
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(255, 69, 0, 0.3);
+}
+
+/* ============================================================
+   4. MODAL & GALLERY
+   ============================================================ */
+.modal-overlay { 
+    position: fixed; 
+    inset: 0; 
+    z-index: 5000; 
+    background: rgba(0,0,0,0.92); 
+    backdrop-filter: blur(15px); 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 30px; 
+}
+
+.modal-content-premium { 
+    width: 100%; 
+    max-width: 1300px; 
+    height: 85vh; 
+    background: #080808; 
+    border: 1px solid rgba(195, 164, 105, 0.1); 
+    display: flex; 
+    flex-direction: column; 
+    overflow: hidden; 
+}
+
+.modal-header-new { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 15px 40px; 
+    background: #0a0a0a; 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.03); 
+}
+
+.tab-btn { 
+    background: none; 
+    border: none; 
+    color: rgba(255, 255, 255, 0.2); 
+    font-family: 'Playfair Display', serif; 
+    font-size: 1rem; 
+    cursor: pointer; 
+    padding: 10px 20px; 
+    transition: 0.4s; 
+}
+
+.tab-btn.active { 
+    color: var(--gold); 
+    border-bottom: 1px solid var(--gold); 
+}
+
+.close-btn { 
+    background: rgba(255, 255, 255, 0.05); 
+    border: 1px solid rgba(195, 164, 105, 0.2); 
+    color: #fff; 
+    padding: 8px 20px; 
+    cursor: pointer; 
+    letter-spacing: 3px; 
+    font-size: 0.6rem; 
+}
+
+.modal-body-refined { 
+    flex: 1; 
+    display: flex; 
+    overflow: hidden; 
+    background: #000; 
+}
+
+.modal-grid-premium-no-border { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    width: 100%; 
+    height: 100%; 
+}
+
+.modal-visual-side-smooth {
+    position: relative; 
+    overflow: hidden;
+}
+
+.image-wrapper-smooth {
+    width: 100%; 
+    height: 100%; 
+}
+
+.modal-main-img-smooth {
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover;
+    mask-image: radial-gradient(circle, black 40%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle, black 40%, transparent 80%);
+}
+
+.shadow-mask { position: absolute; pointer-events: none; z-index: 10; }
+.shadow-mask.top { top: 0; width: 100%; height: 20%; background: linear-gradient(to bottom, #050505, transparent); }
+.shadow-mask.bottom { bottom: 0; width: 100%; height: 20%; background: linear-gradient(to top, #050505, transparent); }
+
+.modal-info-side { 
+    overflow-y: auto; 
+    padding: 60px 10%; 
+    background: #080808; 
+    border-left: 1px solid rgba(255,255,255,0.05); 
+}
+
+.tagline-gold { 
+    color: var(--gold); 
+    letter-spacing: 6px; 
+    font-size: 0.65rem; 
+    margin-bottom: 15px; 
+    display: block; 
+}
+
+.modal-title-main { 
+    font-family: 'Playfair Display', serif; 
+    font-size: 3rem; 
+    text-transform: uppercase; 
+    margin: 0; 
+}
+
+.ingredients-list-grid { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 12px; 
+    padding: 0; 
+    list-style: none; 
+    margin-bottom: 40px; 
+}
+
+.ingredient-item-bullet { 
+    font-size: 0.85rem; 
+    color: rgba(255, 255, 255, 0.5); 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+}
+
+.directions-action-btn { 
+    background: transparent; 
+    border: 1px solid var(--gold); 
+    color: var(--gold); 
+    padding: 14px 35px; 
+    font-size: 0.65rem; 
+    letter-spacing: 3px; 
+    cursor: pointer; 
+    transition: 0.4s; 
+    width: 100%; 
+    text-transform: uppercase; 
+}
+
+/* --- GALLERY VIDEO (ส่วนที่คุณต้องการให้นำขอบดำออก) --- */
+.gallery-view-container { 
+    width: 100%; 
+    height: 100%; 
+    background: #000; 
+    position: relative;
+    overflow: hidden;
+}
+
+.video-player-frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-video-main {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    filter: brightness(0.85) contrast(1.1);
+    /* ไม่ซ่อน controls เพื่อให้กด play/pause ได้ชัดเจน */
+}
+
+/* ลบแถบสีดำ (Cinema Bar) ออกทั้งหมด */
+.cinema-bar.top, 
+.cinema-bar.bottom {
+    background: transparent !important; 
+    box-shadow: none !important;
+    border: none !important;
+}
+
+/* ปรับ Overlay ตัวหนังสือให้อยู่กึ่งกลาง ไม่บังส่วนควบคุมด้านล่าง */
+.video-cinematic-overlay-centered {
+    position: absolute;
+    z-index: 20;
+    pointer-events: none; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* เลื่อนขึ้นเล็กน้อยเพื่อความสมดุล */
+    transform: translateY(-20px);
+}
+
+.v-title-big {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    margin: 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #fff;
+    font-weight: 900;
+    text-shadow: 0 0 30px rgba(0,0,0,0.8); /* เพิ่มเงาเพื่อให้ตัวหนังสืออ่านง่ายแม้ไม่มีแถบดำ */
+}
+
+.v-meta {
+    color: var(--gold);
+    letter-spacing: 8px;
+    font-size: 0.7rem;
+    opacity: 0.9;
+}
+
+.v-separator-gold {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 20px 0;
+    box-shadow: 0 0 15px var(--gold);
+}
+
+/* ============================================================
+   5. NAVIGATION DOTS
+   ============================================================ */
+.v2-nav-dots {
+    position: fixed;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    z-index: 3000;
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1s ease;
+}
+
+.experience-view.visible .v2-nav-dots {
+    opacity: 1;
+    visibility: visible;
+}
+
+.nav-dot {
+    background: none;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
+    cursor: pointer;
+    padding: 10px 0;
+    width: 100px;
+    outline: none;
+}
+
+.dot-number {
+    font-size: 0.75rem;
+    color: #fff;
+    opacity: 0.3;
+    transition: 0.4s;
+}
+
+.dot-line {
+    width: 20px;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.2);
+    transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.nav-dot.active .dot-number {
+    opacity: 1;
+    color: var(--gold);
+    font-weight: 900;
+    transform: scale(1.1);
+}
+
+.nav-dot.active .dot-line {
+    width: 60px;
+    background: var(--gold);
+    height: 2px;
+}
+
+@media (max-width: 768px) {
+    .v2-nav-dots { right: 20px; }
+    .dot-line { width: 15px; }
+    .video-cinematic-overlay-centered { transform: translateY(0); }
+}
+/* --- GALLERY VIDEO: FULLSCREEN OPTIMIZATION --- */
+.gallery-view-container { 
+    width: 100%; 
+    height: 100%; 
+    background: #000; 
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.video-player-frame {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-video-main {
+    width: 100%;
+    height: 100%;
+    /* บังคับวิดีโอขยายเต็มพื้นที่ Modal 100% */
+    object-fit: cover; 
+    filter: brightness(1); /* ปรับความสว่างให้ปกติ */
+}
+
+/* ปุ่ม Mute เปิด-ปิดเสียง */
+.v2-mute-toggle-btn {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    z-index: 30;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(195, 164, 105, 0.4);
+    color: var(--gold);
+    padding: 10px 20px;
+    font-size: 0.6rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.v2-mute-toggle-btn:hover {
+    background: var(--gold);
+    color: #000;
+    transform: translateY(-2px);
+}
+
+/* ตกแต่งแถบ Controls ของเบราว์เซอร์ให้โปร่งใสขึ้นเล็กน้อย */
+video::-webkit-media-controls-panel {
+    background: linear-gradient(transparent, rgba(0,0,0,0.5)) !important;
+}
+
+/* ปิดแถบ Vignette หรือ Overlay เดิมที่อาจจะบังแถบคลิป */
+.cinema-vignette-overlay {
+    display: none !important;
+}
+/* ส่วนแกลเลอรีเสริมในหน้าเมนู */
+.view-extra-gallery {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.floating-img-unit {
+  position: absolute;
+  width: 280px;
+  height: 380px;
+  opacity: 0.5;
+  filter: grayscale(100%) contrast(1.2); /* ทำภาพขาวดำแบบสมจริง */
+  transition: transform 0.1s ease-out;
+}
+
+/* จัดตำแหน่ง 3 จุดให้สมดุล (ซ้ายบน, ขวาบน, ซ้ายล่าง) */
+.pos-0 { top: 10%; left: 5%; }
+.pos-1 { top: 15%; right: 5%; }
+.pos-2 { bottom: 10%; left: 8%; }
+
+.extra-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+}
+
+.view-extra-gallery {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.floating-img-unit {
+    position: absolute;
+    width: 320px; /* ขยายขนาดเล็กน้อยเพื่อรับขอบฟุ้ง */
+    height: 420px;
+    cursor: pointer;
+    z-index: 5;
+    
+    /* สภาวะปกติ: มืดและนวลจมไปกับพื้นหลัง */
+    filter: brightness(0.4) grayscale(20%);
+    opacity: 0.5;
+    
+    /* --- เทคนิคทำให้ขอบกลมกลืน (Vignette Mask) --- */
+    mask-image: radial-gradient(circle, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(circle, black 30%, transparent 75%);
+    
+    /* ทำให้เม็ดสีกลืนไปกับโทนสีน้ำตาลของพื้นหลัง */
+    mix-blend-mode: screen; 
+
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* เมื่อเอาเมาส์ชี้: ให้ภาพชัดขึ้นแต่ยังรักษาขอบฟุ้งไว้ */
+.floating-img-unit:hover {
+    filter: brightness(0.9) grayscale(0%);
+    opacity: 0.9;
+    transform: scale(1.05) !important;
+    z-index: 10;
+}
+
+/* จัดตำแหน่ง 3 จุดสมดุล */
+.pos-0 { top: 8%; left: 3%; }
+.pos-1 { top: 12%; right: 3%; }
+.pos-2 { bottom: 12%; left: 5%; }
+
+.extra-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* ลบ Box Shadow แบบเก่าออก เพราะเราต้องการความนวล */
+}
+
+/* ข้อความ extraordinary เรืองแสง */
+.extraordinary-glow {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(4rem, 12vw, 10rem);
+    color: rgba(255, 255, 255, 0.6); /* ลดความขาวจัดให้ดูแพงขึ้น */
+    white-space: nowrap;
+    z-index: 2;
+    pointer-events: none;
+    text-shadow: 
+        0 0 30px rgba(195, 164, 105, 0.4),
+        0 0 60px rgba(255, 255, 255, 0.1);
+    opacity: 0.7;
+}
+/* Gallery ในหน้าเมนู */
+.view-extra-gallery {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: auto;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.floating-img-unit {
+    position: absolute;
+    width: 320px;
+    height: 420px;
+    cursor: pointer;
+    z-index: 5;
+    
+    /* ปกติ: นวล กลืนขอบ มืด */
+    filter: brightness(0.4) grayscale(20%);
+    opacity: 0.5;
+    mix-blend-mode: screen; 
+    
+    /* เทคนิคขอบฟุ้ง (Soft Edges) ทำให้ไม่ดูเป็นสี่เหลี่ยมแข็ง */
+    mask-image: radial-gradient(circle, black 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(circle, black 30%, transparent 75%);
+    
+    transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* เมื่อเอาเมาส์ชี้: สว่างชัด และขยายขึ้น */
+.floating-img-unit:hover {
+    filter: brightness(1) grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05) !important;
+    z-index: 10;
+}
+
+/* ตำแหน่ง 3 จุด */
+.pos-0 { top: 8%; left: 3%; }
+.pos-1 { top: 12%; right: 3%; }
+.pos-2 { bottom: 12%; left: 5%; }
+
+.extra-bg-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ข้อความ Glow กลางหน้าจอ */
+.extraordinary-glow {
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(4rem, 11vw, 11rem);
+    color: rgba(255, 255, 255, 0.6);
+    white-space: nowrap;
+    z-index: 2;
+    pointer-events: none;
+    text-shadow: 0 0 30px rgba(195, 164, 105, 0.4), 
+                 0 0 60px rgba(255, 255, 255, 0.1);
+}
+/* --- Mobile Responsive Rules --- */
+@media screen and (max-width: 768px) {
+  /* หัวข้อหน้าแรกเล็กลง */
+  .hero-title-v2 {
+    font-size: 3rem;
+  }
+  .v2-title-mid {
+    font-size: 4rem;
+  }
+
+  /* ปรับแต่ง Gallery 3 รูปให้เล็กลงและกระจายตัวน้อยลง */
+  .floating-img-unit {
+    width: 100px !important;
+    height: 100px !important;
+  }
+  .pos-0 { top: 15%; left: 10%; }
+  .pos-1 { top: 20%; right: 10%; }
+  .pos-2 { bottom: 25%; left: 50%; transform: translateX(-50%); }
+
+  /* Modal สำหรับมือถือ */
+  .modal-content-premium {
+    width: 95%;
+    height: 90vh;
+    flex-direction: column; /* เปลี่ยนจากแนวนอนเป็นแนวตั้ง */
+    overflow-y: auto;
+  }
+  
+  .modal-grid-premium-no-border {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .modal-visual-side-smooth {
+    height: 250px; /* ลดความสูงรูปใน Modal */
+  }
+
+  .modal-info-side {
+    padding: 20px;
+  }
+
+  .modal-title-main {
+    font-size: 2rem;
+  }
+
+  .ingredients-list-grid {
+    grid-template-columns: 1fr; /* รายการวัตถุดิบแถวเดียว */
+  }
+
+  /* ปุ่ม Navigation */
+  .v2-explore-btn {
+    width: 90%;
+    font-size: 0.9rem;
+    padding: 15px;
+  }
+}
+/* --- Mobile Scroll Hint Styles --- */
+.mobile-scroll-hint {
+  position: absolute;
+  bottom: 120px; /* วางไว้เหนือปุ่ม View Details เล็กน้อย */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: fadeInOut 2s infinite ease-in-out;
+}
+
+/* ซ่อนใน Desktop แสดงเฉพาะใน Mobile */
+@media screen and (min-width: 769px) {
+  .mobile-scroll-hint {
+    display: none;
+  }
+}
+
+.hint-text {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+}
+
+/* อนิเมชั่นวงรี/ลูกกลิ้งเลื่อน */
+.mouse-wheel {
+  width: 20px;
+  height: 35px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-inner {
+  width: 3px;
+  height: 6px;
+  background: white;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+  animation: scrollAnim 1.5s infinite;
+}
+
+/* อนิเมชั่นลูกศรชี้ลง */
+.arrow-down-v2 {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid white;
+  border-bottom: 1.5px solid white;
+  transform: rotate(45deg);
+  margin-top: -5px;
+}
+
+/* Keyframes สำหรับอนิเมชั่น */
+@keyframes scrollAnim {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 15px); }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+/* --- Mobile Scroll Hint Styles --- */
+.mobile-scroll-hint {
+  position: absolute;
+  bottom: 120px; /* วางไว้เหนือปุ่ม View Details เล็กน้อย */
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+  opacity: 0.6;
+  pointer-events: none;
+  animation: fadeInOut 2s infinite ease-in-out;
+}
+
+/* ซ่อนใน Desktop แสดงเฉพาะใน Mobile */
+@media screen and (min-width: 769px) {
+  .mobile-scroll-hint {
+    display: none;
+  }
+}
+
+.hint-text {
+  font-size: 0.7rem;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 300;
+}
+
+/* อนิเมชั่นวงรี/ลูกกลิ้งเลื่อน */
+.mouse-wheel {
+  width: 20px;
+  height: 35px;
+  border: 1.5px solid rgba(255, 255, 255, 0.5);
+  border-radius: 12px;
+  position: relative;
+}
+
+.scroll-inner {
+  width: 3px;
+  height: 6px;
+  background: white;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+  animation: scrollAnim 1.5s infinite;
+}
+
+/* อนิเมชั่นลูกศรชี้ลง */
+.arrow-down-v2 {
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid white;
+  border-bottom: 1.5px solid white;
+  transform: rotate(45deg);
+  margin-top: -5px;
+}
+
+/* Keyframes สำหรับอนิเมชั่น */
+@keyframes scrollAnim {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 15px); }
+}
+
+@keyframes fadeInOut {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.8; }
+}
+/* เพิ่มเติมเฉพาะส่วนวิดีโอ YouTube */
+.gallery-view-container {
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.video-player-frame {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
