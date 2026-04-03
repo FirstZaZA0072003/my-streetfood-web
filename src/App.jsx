@@ -4,7 +4,7 @@ import './App.css';
 const FOOD_COLLECTIONS = [
   {
     id: 1,
-    youtubeId: 'HcBCkAs5B7o',
+    youtubeId: 'a96pYFMooQI',
     displayName: 'Thai Basil Stir-Fry',
     subName: '(Pad Ka-Prao)',
     imgUrl: '/images/food1_plate.jpg',
@@ -16,7 +16,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 2,
-    youtubeId: 'DmWeCTkhDvY',
+    youtubeId: 'HrSCsvM5FBU',
     displayName: 'Thai Stir-Fried Noodles',
     subName: '(Pad Thai)',
     imgUrl: '/images/food2_plate.jpg',
@@ -28,7 +28,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 3,
-    youtubeId: 'M-8jxPCyvGs',
+    youtubeId: 'q1xreqTJVUo',
     displayName: 'Green Papaya Salad',
     subName: '(Som Tam)',
     imgUrl: '/images/food3_plate.jpg',
@@ -40,7 +40,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 4,
-    youtubeId: '5ugLHNTBGSI',
+    youtubeId: 'TI3iIDUHAzs',
     displayName: 'Mango Sticky Rice',
     subName: '(Khao Niao Mamuang)',
     imgUrl: '/images/food4_plate.jpg',
@@ -52,7 +52,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 5,
-    youtubeId: 'gOz-GIBo03w',
+    youtubeId: 'J0oo4BPlcFw',
     displayName: 'Thai Coconut Pancakes',
     subName: '(Khanom Khrok)',
     imgUrl: '/images/food5_plate.jpg',
@@ -64,7 +64,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 6,
-    youtubeId: '6Xr5iQafPXM',
+    youtubeId: '7kTdf_Q1Us0',
     displayName: 'Thai Grilled Pork',
     subName: '(Moo Ping)',
     imgUrl: '/images/food6_plate.jpg',
@@ -76,7 +76,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 7,
-    youtubeId: 'kZnc3YqNJ5Y',
+    youtubeId: 'Iw3XpToHGOg',
     displayName: 'Thai Grilled Chicken',
     subName: '(Gai Yang)',
     imgUrl: '/images/food7_plate.jpg',
@@ -88,7 +88,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 8,
-    youtubeId: '-nnAKxbEggA',
+    youtubeId: 'SwgBx0dEKPI',
     displayName: 'Thai Sweet Roti',
     subName: '(Ro-Tee)',
     imgUrl: '/images/food8_plate.jpg',
@@ -100,7 +100,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 9,
-    youtubeId: 'Qq6e73LWDPM',
+    youtubeId: 'XeYbNYvCiMw',
     displayName: 'Soy Sauce Noodles',
     subName: '(Pad See-Ew)',
     imgUrl: '/images/food9_plate.jpg',
@@ -112,7 +112,7 @@ const FOOD_COLLECTIONS = [
   },
   {
     id: 10,
-    youtubeId: '0EB9Eg-k8MQ',
+    youtubeId: 'K2DulojsMVg',
     displayName: 'Thai Street Meatballs',
     subName: '(Look-Chin-Ping)',
     imgUrl: '/images/food10_plate.jpg',
@@ -140,7 +140,7 @@ export default function App() {
 
   const isMobile = () => window.innerWidth <= 768;
 
-const handleOpenMap = (address) => {
+  const handleOpenMap = (address) => {
     // saddr=My+Location จะสั่งให้ Google Maps ใช้จุดปัจจุบันเป็นจุดเริ่มต้นอัตโนมัติ
     const navigationUrl = `https://www.google.com/maps?saddr=My+Location&daddr=${encodeURIComponent(address)}`;
     window.open(navigationUrl, '_blank');
@@ -300,7 +300,9 @@ const handleOpenMap = (address) => {
           <h1 className="hero-title-v2"><span className="v2-title-top">THE ART OF</span><span className="v2-title-mid">STREET FOOD</span><span className="v2-title-bot">THAI</span></h1>
           <div className="hero-separator-v3"></div>
           <p className="hero-tag-v2">A Curated Culinary Journey Through Thailand’s Vibrant Soul</p>
-          <div className="scroll-explorer-v2"><div className="scroll-line-v2"></div><span className="scroll-text-v2">SCROLL DOWN TO START</span></div>
+          <span className="scroll-text-v2" style={{ color: '#FFF', fontWeight: 'bold', textShadow: '2px 2px 4px #000' }}>
+            SCROLL DOWN TO START
+          </span>
         </div>
       </div>
 

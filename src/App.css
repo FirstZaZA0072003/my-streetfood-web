@@ -151,21 +151,20 @@ body:has(.modal-overlay) {
     gap: 15px; 
 }
 
-.scroll-text-v2 { 
-    font-size: 0.6rem; 
-    letter-spacing: 7px; 
-    color: var(--gold); 
-    opacity: 0.5; 
+.scroll-text-v2 {
+  color: #ffffff; /* ปรับเป็นสีขาวบริสุทธิ์ หรือ #ffd700 หากต้องการสีทองให้เข้ากับ Theme */
+  font-weight: 700; /* เพิ่มความหนาของตัวอักษร */
+  letter-spacing: 2px; /* เพิ่มระยะห่างตัวอักษรให้ดูเป็นแนว Cinematic */
+  text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.8); /* เพิ่มเงาหลังตัวอักษรเพื่อตัดกับพื้นหลังที่อาจจะมีสีสว่างแทรกมา */
+  opacity: 1 !important; /* เช็คว่าไม่มีค่า opacity ที่ทำให้จาง */
 }
 
-.scroll-line-v2 { 
-    width: 1px; 
-    height: 60px; 
-    background: rgba(195, 164, 105, 0.15); 
-    position: relative; 
-    overflow: hidden; 
+.scroll-line-v2 {
+  width: 2px;
+  height: 50px;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,1)); /* ไล่เฉดจากจางไปเข้มที่ปลายเส้น */
+  margin: 0 auto 15px;
 }
-
 .scroll-line-v2::after { 
     content: ''; 
     position: absolute; 
@@ -1050,4 +1049,28 @@ video::-webkit-media-controls-panel {
     width: 100%;
     height: 100%;
     position: relative;
+}
+@keyframes scrollHint {
+  0% { opacity: 0.3; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(5px); }
+  100% { opacity: 0.3; transform: translateY(0); }
+}
+
+.scroll-explorer-v2 {
+  animation: scrollHint 2s infinite ease-in-out;
+}
+/* ใน App.css ปรับลดความเบลอในมือถือ */
+@media (max-width: 768px) {
+  .nav-navigation-group, 
+  .v2-explore-btn-premium,
+  .nav-side-fixed-btn {
+    backdrop-filter: none !important; /* ปิดความเบลอในมือถือเพื่อความลื่น */
+    background: rgba(0, 0, 0, 0.85) !important; /* ใช้สีทึบแทน */
+  }
+  
+  /* ลดคุณภาพเงา */
+  * {
+    text-shadow: none !important;
+    box-shadow: none !important;
+  }
 }
