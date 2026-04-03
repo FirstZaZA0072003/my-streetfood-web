@@ -140,8 +140,9 @@ export default function App() {
 
   const isMobile = () => window.innerWidth <= 768;
 
-  const handleOpenMap = (address) => {
-    const navigationUrl = `http://googleusercontent.com/maps.google.com/maps/dir/?api=1&destination=${encodeURIComponent(address)}&travelmode=driving`;
+const handleOpenMap = (address) => {
+    // saddr=My+Location จะสั่งให้ Google Maps ใช้จุดปัจจุบันเป็นจุดเริ่มต้นอัตโนมัติ
+    const navigationUrl = `https://www.google.com/maps?saddr=My+Location&daddr=${encodeURIComponent(address)}`;
     window.open(navigationUrl, '_blank');
   };
 
