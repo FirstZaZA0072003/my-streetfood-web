@@ -67,7 +67,7 @@ export default function App() {
     if (!tableGroupRef.current || stateRef.current.isAnimating) return;
     const gsap = window.gsap;
     stateRef.current.isAnimating = true;
-    
+
     setIsStarted(true);
     stateRef.current.index = targetIndex;
     setCurrentIndex(targetIndex);
@@ -124,9 +124,9 @@ export default function App() {
       const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
       renderer.setSize(window.innerWidth, window.innerHeight);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
-      
+
       if (canvasRef.current) {
-        canvasRef.current.innerHTML = ''; 
+        canvasRef.current.innerHTML = '';
         canvasRef.current.appendChild(renderer.domElement);
       }
 
@@ -210,22 +210,24 @@ export default function App() {
 
   return (
     <div className="app-container" onMouseMove={handleHeroMouseMove}>
-      
+
       {/* 1. Landing Screen */}
       <div className={`landing-screen ${isStarted ? 'started' : ''}`}>
         <div className="hero-bg-glow"></div>
         <div className="pl-parallax-container">
           {FOOD_COLLECTIONS.slice(0, 9).map((plate, idx) => (
-            <div key={idx} 
-                 className="pl-floating-plate-unit"
-                 onClick={() => startJourney(idx)}
-                 style={{
-                    top: ['8%', '15%', '75%', '85%', '35%', '5%', '55%', '85%', '45%'][idx],
-                    left: ['5%', '75%', '5%', '85%', '88%', '32%', '2%', '20%', '80%'][idx],
-                    transform: `translate3d(${heroMouse.x * (idx + 10)}px, ${heroMouse.y * (idx + 10)}px, 0)`,
-                    zIndex: 5,
-                    cursor: 'pointer'
-                 }}>
+            <div key={idx}
+              className="pl-floating-plate-unit"
+              onClick={() => startJourney(idx)}
+              /* แก้ตรงนี้: ถ้าไม่ใช่ Mobile ให้ใช้สไตล์เดิมของคุณ แต่ถ้าเป็น Mobile ให้ใช้ Grid จาก CSS */
+              style={!isMobile ? {
+                top: ['8%', '15%', '75%', '85%', '35%', '5%', '55%', '85%', '45%'][idx],
+                left: ['5%', '75%', '5%', '85%', '88%', '32%', '2%', '20%', '80%'][idx],
+                transform: `translate3d(${heroMouse.x * (idx + 10)}px, ${heroMouse.y * (idx + 10)}px, 0)`,
+                zIndex: 5,
+                cursor: 'pointer'
+              } : {}}
+            >
               <div className="pl-ceramic-plate-v3" style={{ backgroundImage: `url(${plate.imgUrl})` }}>
                 <div className="click-hint">VIEW</div>
               </div>
@@ -243,8 +245,8 @@ export default function App() {
           </h1>
           <p className="hero-tag-v2">A Curated Culinary Journey Through Thailand’s Soul</p>
           <div className="cta-container">
-            <span className="scroll-text-v2-btn" onClick={() => startJourney(0)} style={{cursor: 'pointer'}}>
-                [ CLICK TO START JOURNEY ]
+            <span className="scroll-text-v2-btn" onClick={() => startJourney(0)} style={{ cursor: 'pointer' }}>
+              [ CLICK TO START JOURNEY ]
             </span>
           </div>
         </div>
@@ -258,7 +260,7 @@ export default function App() {
       {/* 2. Experience View */}
       <div className={`experience-view ${isStarted ? 'visible' : ''}`}>
         <div className="canvas-container" ref={canvasRef} />
-        
+
         {isStarted && (
           <div className="main-ui-overlay-v2">
             <div className="ui-top-meta">
@@ -276,7 +278,7 @@ export default function App() {
                 <div className="v2-separator"></div>
               </div>
             </div>
-            
+
             <div className="ui-bottom-bar">
               <div className="bottom-controls-group">
                 <button className="v2-explore-btn" onClick={() => { setSelectedMenu(FOOD_COLLECTIONS[currentIndex]); setActiveTab('story'); }}>
@@ -284,11 +286,22 @@ export default function App() {
                 </button>
 
                 <div className="pagination-stack">
+
+             
                   <div className="dish-pagination-v3">
                     {FOOD_COLLECTIONS.map((_, idx) => (
-                      <div key={idx} className={`page-item-v3 ${currentIndex === idx ? 'active' : ''}`} onClick={(e) => { e.stopPropagation(); moveToIndex(idx); }}>
-                        <span className="page-number-v3">{(idx + 1).toString().padStart(2, '0')}</span>
-                        <div className="page-line-v3"></div>
+                      <div
+                        key={idx}
+                        className={`page-item-v3 ${currentIndex === idx ? 'active' : ''}`}
+                        onClick={(e) => {
+                          e.stopPropagation(); // สำคัญ: กันไม่ให้เหตุการณ์หลุดไปที่อื่น
+                          moveToIndex(idx);
+                        }}
+                      >
+                        <span className="page-number-v3">
+                          {/* บังคับให้แสดงเลขตามลำดับ 01, 02, 03... */}
+                          {(idx + 1).toString().padStart(2, '0')}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -344,7 +357,7 @@ export default function App() {
                   </div>
                 </div>
               ) : (
-                <div className="gallery-view-container" style={{height: '100%', position: 'relative', overflow: 'hidden', background: '#000'}}>
+                <div className="gallery-view-container" style={{ height: '100%', position: 'relative', overflow: 'hidden', background: '#000' }}>
                   <div className="video-vignette-mask" style={{
                     position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 2, pointerEvents: 'none',
                     background: 'radial-gradient(circle, transparent 20%, rgba(0, 0, 0, 0.4) 55%, rgba(0, 0, 0, 0.9) 100%)'

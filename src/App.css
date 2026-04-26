@@ -2021,4 +2021,289 @@ video::-webkit-media-controls-panel {
   }
 }
 
-/* --- ส่วนที่เหลือ (Desktop) ให้คงเดิมไว้ --- */
+/* ============================================================
+   MOBILE RESPONSIVE ONLY (แก้เฉพาะในมือถือ)
+   ============================================================ */
+@media (max-width: 768px) {
+  /* 1. จัดระเบียบตัวหนังสือ Hero ให้ลอยเด่นขึ้น ไม่ให้จานอาหารมาบัง */
+  .hero-box-v2 {
+    position: relative;
+    z-index: 50; /* ดันตัวหนังสือให้อยู่บนสุด */
+    background: rgba(5, 5, 5, 0.4); /* ใส่พื้นหลังจางๆ ให้ตัวหนังสือตัดกับจาน */
+    backdrop-filter: blur(4px); /* เพิ่มเอฟเฟกต์เบลอหลังตัวหนังสือทำให้อ่านง่ายขึ้นมาก */
+    padding: 20px 10px;
+    border-radius: 15px;
+    width: 90% !important;
+    margin: 0 auto;
+    pointer-events: none; /* เพื่อให้ยังสามารถกดจานที่อยู่ข้างหลังได้ */
+  }
+
+  .v2-title-mid {
+    font-size: 3.2rem !important; /* ลดขนาดลงเล็กน้อยให้พอดีจอ */
+    letter-spacing: -1px;
+    margin-bottom: 5px;
+  }
+
+  /* 2. จัดการกลุ่มจานอาหารหน้าแรก (Grid) ให้เล็กลงและไม่บังเนื้อหาสำคัญ */
+  .pl-parallax-container {
+    padding-top: 15vh !important; /* ดันกลุ่มจานลงมาไม่ให้บัง Header */
+    gap: 20px !important;
+  }
+
+  .pl-ceramic-plate-v3 {
+    width: 70px !important; /* ลดขนาดจานลงเพื่อให้หน้าจอไม่ดูแน่นเกินไป */
+    height: 70px !important;
+    border: 1px solid rgba(195, 164, 105, 0.5) !important; /* ลดความหนาเส้นขอบ */
+  }
+
+  .plate-name-label {
+    font-size: 7px !important; /* ลดขนาดชื่อเมนูให้พอดีกับจาน */
+    background: rgba(0,0,0,0.6); /* ใส่พื้นหลังดำจางๆ ให้ชื่อเมนูอ่านง่ายขึ้น */
+    padding: 2px 4px;
+    border-radius: 4px;
+  }
+
+  /* 3. ปรับปุ่ม Click to Start ให้ชัดเจน */
+  .scroll-text-v2-btn {
+    font-size: 0.75rem !important;
+    padding: 10px 20px !important;
+    background: rgba(195, 164, 105, 0.1);
+    pointer-events: auto; /* มั่นใจว่ากดได้ */
+  }
+
+  /* 4. ปรับหน้าแสดงผลอาหาร (Experience View) ให้ตัวหนังสือใหญ่ขึ้น */
+  .v2-dish-name {
+    font-size: 2.2rem !important;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8); /* เพิ่มเงาเข้มๆ ให้ตัวหนังสือสีขาวอ่านง่ายบนพื้นสีทอง */
+  }
+  
+  .v2-dish-sub {
+    font-size: 1rem !important;
+    opacity: 0.9;
+  }
+}
+@media (max-width: 768px) {
+  /* 1. จัดระเบียบจานให้อยู่ "ขอบบน" ของหน้าจอ */
+  .pl-parallax-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr); /* เรียง 3 คอลัมน์ */
+    gap: 10px;
+    padding: 20px 10px !important; 
+    align-content: start; /* บังคับให้อยู่ชิดขอบบน */
+    height: 60vh !important; /* จองพื้นที่ส่วนบนไว้สำหรับจาน */
+    pointer-events: auto !important;
+    overflow: hidden;
+  }
+
+  .pl-floating-plate-unit {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .pl-ceramic-plate-v3 {
+    width: 65px !important; /* ลดขนาดจานลงเพื่อให้ไม่เบียดตัวหนังสือ */
+    height: 65px !important;
+    border-width: 2px !important;
+  }
+
+  .plate-name-label {
+    font-size: 7px !important;
+    margin-top: 5px !important;
+    white-space: normal !important;
+    line-height: 1;
+    opacity: 1 !important;
+    text-align: center;
+    color: var(--gold);
+  }
+
+  /* 2. จัดระเบียบตัวหนังสือและปุ่มให้อยู่ "ขอบล่าง" */
+  @media (max-width: 768px) {
+
+  /* 1. จัดตำแหน่งกล่องข้อความให้อยู่กึ่งกลางหน้าจอ */
+  .hero-box-v2 {
+    position: absolute !important;
+    left: 50% !important;           /* ย้ายจุดอ้างอิงมาไว้ตรงกลาง */
+    transform: translateX(-50%) !important; /* ดันกล่องกลับมาให้กึ่งกลางเป๊ะ */
+    bottom: 15vh !important;        /* ขยับขึ้นมาจากขอบล่างนิดหน่อย (ปรับตัวเลขนี้ได้ตามใจชอบ) */
+    width: 100% !important;
+    max-width: 90vw !important;
+    text-align: center !important;  /* บังคับให้ตัวหนังสือทุกบรรทัดอยู่กลาง */
+    z-index: 100 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    pointer-events: none !important;
+  }
+
+  /* 2. จัดระเบียบหัวข้อ STREET FOOD THAI */
+  .hero-title-v2 {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important; /* จัดลูกๆ ให้อยู่กึ่งกลาง */
+    justify-content: center !important;
+    width: 100% !important;
+  }
+
+  /* 3. จัดการปุ่ม [ CLICK TO START JOURNEY ] */
+  .cta-container {
+    display: flex !important;
+    justify-content: center !important; /* บังคับปุ่มอยู่กลาง */
+    width: 100% !important;
+    margin-top: 20px !important;
+  }
+
+  .scroll-text-v2-btn {
+    pointer-events: auto !important; /* สำคัญ: เพื่อให้กดปุ่มได้ */
+    margin: 0 auto !important;
+    display: inline-block !important;
+    width: auto !important;
+    min-width: 250px; /* เพิ่มความกว้างให้ปุ่มดูพรีเมียม */
+  }
+
+  /* ปรับขนาดตัวหนังสือกลางจอให้ดูพอดีไม่เบียด */
+  .v2-title-mid {
+    font-size: 2.8rem !important;
+    white-space: nowrap !important; /* กันตัวหนังสือแตกบรรทัด */
+  }
+}
+  .v2-title-mid {
+    font-size: 2.2rem !important; /* ลดขนาด STREET FOOD */
+    margin: 5px 0 !important;
+  }
+
+  .hero-tag-v2 {
+    font-size: 8px !important;
+    margin-bottom: 15px !important;
+  }
+
+  .scroll-text-v2-btn {
+    pointer-events: auto !important; /* ให้ปุ่มกดได้ */
+    font-size: 0.8rem !important;
+    padding: 10px 20px !important;
+    margin-top: 10px !important;
+  }
+
+  /* 3. ซ่อน Click Hint และ Scroll Hint เพื่อลดความรกบนจอเล็ก */
+  .click-hint, .scroll-hint-v2 {
+    display: none !important;
+  }
+}
+/* ============================================================
+   ซ่อมปุ่มกดและหน้าหลักสำหรับ Mobile (กดง่าย 100%)
+   ============================================================ */
+/* ============================================================
+   1. ส่วนเดิม (Desktop) - ห้ามแก้/คงไว้เหมือนเดิม
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Prompt:wght@100;300;400;600;900&display=swap');
+
+:root { 
+    --gold: #c3a469; 
+    --black: #050505; 
+    --orange-glow: #ff5e00;
+    --transition-smooth: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* { box-sizing: border-box; }
+body, html { margin: 0; padding: 0; overflow: hidden; background: var(--black); color: #fff; font-family: 'Prompt', sans-serif; }
+
+.landing-screen { position: fixed; inset: 0; display: flex; justify-content: center; align-items: center; z-index: 2000; background: #050505; transition: 1.6s var(--transition-smooth); }
+.landing-screen.started { opacity: 0; transform: scale(1.1); pointer-events: none; }
+.pl-parallax-container { position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1; background: radial-gradient(circle at center, #0a0a0a 0%, #000 100%); }
+.pl-floating-plate-unit { position: absolute; will-change: transform; transition: transform 0.5s var(--transition-smooth); pointer-events: auto; }
+.pl-ceramic-plate-v3 { width: 220px; height: 220px; background-size: cover; background-position: center; border-radius: 50%; border: 2px solid rgba(195, 164, 105, 0.2); box-shadow: 0 15px 45px rgba(0,0,0,0.7); transition: 0.5s ease; }
+.pl-floating-plate-unit:hover .pl-ceramic-plate-v3 { filter: brightness(1.1); transform: scale(1.1); border: 3px solid var(--gold); }
+.plate-name-label { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 10px; text-transform: uppercase; margin-top: 15px; text-align: center; }
+
+/* ... (CSS ส่วนอื่นๆ ในหน้า Experience และ Modal ให้คงเดิมไว้ตามไฟล์ของคุณ) ... */
+
+/* ============================================================
+   2. ส่วนใหม่ (Mobile Only) - ปรับเฉพาะในมือถือ
+   ============================================================ */
+/* --- ส่วนเดิม (คงไว้) --- */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Prompt:wght@100;300;400;600;900&display=swap');
+:root { --gold: #c3a469; --black: #050505; }
+body, html { margin: 0; padding: 0; overflow: hidden; background: var(--black); color: #fff; font-family: 'Prompt', sans-serif; }
+
+/* --- ส่วนแก้ปัญหา MOBILE ONLY --- */
+@media screen and (max-width: 768px) {
+  /* 1. เลเยอร์ครอบทั้งหมด ต้องโปร่งแสงต่อแรงกด (Pointer Events) */
+  .main-ui-overlay-v2 {
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 5000 !important;
+    pointer-events: none !important; /* บังคับให้คลิกทะลุพื้นที่ว่าง */
+  }
+
+  /* 2. ส่วนบน: ปุ่ม Back to Home */
+  .ui-top-meta {
+    padding: 15px 20px !important;
+    pointer-events: auto !important; /* เปิดโซนให้กดได้ */
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    z-index: 6000 !important;
+  }
+
+  .v2-home-btn {
+    pointer-events: auto !important;
+    padding: 12px 18px !important;
+    background: rgba(255, 255, 255, 0.2) !important;
+    border: 1px solid var(--gold) !important;
+    border-radius: 4px;
+    z-index: 7000 !important;
+  }
+
+  /* 3. ส่วนล่าง: ปุ่ม OPEN และ Pagination */
+  .ui-bottom-bar {
+    bottom: 2vh !important;
+    pointer-events: none !important;
+  }
+
+  .bottom-controls-group {
+    pointer-events: auto !important; /* เปิดโซนให้กดได้ */
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    z-index: 6000 !important;
+  }
+
+  .v2-explore-btn {
+    width: 90vw !important;
+    padding: 18px 0 !important;
+    background: #fff !important;
+    color: #000 !important;
+    z-index: 7000 !important;
+    pointer-events: auto !important;
+  }
+
+  /* 4. แก้ปัญหา Pagination 01-09 กดไม่ได้และพื้นที่น้อย */
+  .dish-pagination-v3 {
+    display: flex !important;
+    justify-content: center !important;
+    gap: 5px !important;
+    margin-top: 10px !important;
+    pointer-events: auto !important;
+  }
+
+  .page-item-v3 {
+    padding: 15px 8px !important; /* เพิ่มพื้นที่สัมผัส */
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+    pointer-events: auto !important;
+    z-index: 7000 !important;
+  }
+
+  /* --- ส่วนหน้าแรก (Landing) --- */
+  .pl-parallax-container {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 10px !important;
+    padding: 30px 10px !important;
+    pointer-events: auto !important;
+  }
+}
