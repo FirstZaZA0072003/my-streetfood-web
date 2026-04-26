@@ -1074,3 +1074,896 @@ video::-webkit-media-controls-panel {
     box-shadow: none !important;
   }
 }
+/* --- Animation ส่วนที่เพิ่มใหม่ตามคอมเมนต์อาจารย์ --- */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+@keyframes pulse-hint {
+    0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+    50% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+}
+
+.pl-floating-plate-unit {
+    position: absolute;
+    will-change: transform;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: float 5s ease-in-out infinite;
+}
+
+/* คืนค่าฟอนต์ 3 ชั้นแบบดั้งเดิม */
+.hero-title-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.9;
+    margin: 20px 0;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.9);
+}
+
+.v2-title-top {
+    font-size: 1.5rem;
+    letter-spacing: 12px;
+    color: #c3a469;
+    font-weight: 300;
+}
+
+.v2-title-mid {
+    font-size: clamp(3rem, 8vw, 6rem);
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: #fff;
+    margin: 15px 0;
+}
+
+.v2-title-bot {
+    font-size: 1.2rem;
+    letter-spacing: 20px;
+    color: #c3a469;
+}
+
+/* จานหน้าแรก Hover แล้วชัดเป๊ะ (Hardware Acceleration) */
+.pl-ceramic-plate-v3 {
+    width: 220px;
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    filter: brightness(0.8);
+    transition: all 0.5s ease;
+    border: 2px solid rgba(195, 164, 105, 0.2);
+}
+
+.pl-floating-plate-unit:hover .pl-ceramic-plate-v3 {
+    filter: brightness(1.1) blur(0px); /* ชัดแจ๋ว */
+    transform: scale(1.1);
+    border: 3px solid #c3a469;
+}
+
+.click-hint {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; font-size: 0.8rem; letter-spacing: 2px;
+    opacity: 0; transition: 0.3s;
+    background: rgba(195, 164, 105, 0.9);
+    padding: 10px 20px; border-radius: 30px;
+    animation: pulse-hint 2s infinite ease-in-out;
+}
+
+.pl-floating-plate-unit:hover .click-hint { opacity: 1; }
+
+.scroll-text-v2-btn {
+    margin-top: 35px;
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 3px;
+    color: #c3a469;
+    cursor: pointer;
+    padding: 15px 30px;
+    border: 2px solid #c3a469;
+    transition: 0.4s;
+    pointer-events: all;
+}
+
+.scroll-text-v2-btn:hover {
+    background: #c3a469;
+    color: #000;
+}
+
+/* Mobile Scroll Fix */
+@media (max-width: 768px) {
+    .pl-ceramic-plate-v3 { width: 120px; height: 120px; filter: brightness(1); }
+    .canvas-container { touch-action: pan-y; }
+}
+/* การตั้งค่าพื้นฐาน */
+.app-container {
+    width: 100vw;
+    height: 100vh;
+    background: #0a0a0a;
+    overflow: hidden;
+    position: relative;
+    color: white;
+}
+
+/* --- หน้าแรก (Landing Screen) --- */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.pl-floating-plate-unit {
+    position: absolute;
+    will-change: transform;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: float 5s ease-in-out infinite;
+}
+
+.pl-ceramic-plate-v3 {
+    width: 220px;
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.7);
+    filter: brightness(0.85);
+    transition: all 0.5s ease;
+    border: 2px solid rgba(195, 164, 105, 0.2);
+}
+
+.pl-floating-plate-unit:hover .pl-ceramic-plate-v3 {
+    filter: brightness(1.1) blur(0px);
+    transform: scale(1.1);
+    border: 3px solid #c3a469;
+    box-shadow: 0 25px 60px rgba(195, 164, 105, 0.3);
+}
+
+.click-hint {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    color: white; font-size: 0.75rem; letter-spacing: 2px;
+    opacity: 0; transition: 0.3s;
+    background: rgba(195, 164, 105, 0.9);
+    padding: 10px 20px; border-radius: 30px;
+}
+
+.pl-floating-plate-unit:hover .click-hint { opacity: 1; }
+
+/* ฟอนต์หรูหรา 3 ชั้น */
+.hero-box-v2 {
+    position: relative;
+    pointer-events: none;
+    z-index: 100;
+    padding: 40px;
+}
+
+.hero-title-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.9;
+    margin: 20px 0;
+    text-shadow: 0 10px 40px rgba(0,0,0,1);
+}
+
+.v2-title-top { font-size: 1.5rem; letter-spacing: 12px; color: #c3a469; font-weight: 300; }
+.v2-title-mid { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin: 15px 0; }
+.v2-title-bot { font-size: 1.2rem; letter-spacing: 20px; color: #c3a469; }
+
+.scroll-text-v2-btn {
+    margin-top: 35px;
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    color: #c3a469;
+    cursor: pointer;
+    padding: 15px 35px;
+    border: 2px solid #c3a469;
+    transition: 0.4s;
+    pointer-events: all;
+}
+
+.scroll-text-v2-btn:hover { background: #c3a469; color: #000; box-shadow: 0 0 25px rgba(195, 164, 105, 0.5); }
+
+/* --- หน้าหลัก (Experience) --- */
+.main-ui-overlay-v2 {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+}
+
+/* Dots Pagination - Premium Minimalist Design */
+.dish-pagination-v4 {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    pointer-events: all !important;
+}
+
+.page-dot-container {
+    cursor: pointer;
+    padding: 15px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.dot-wrapper { display: flex; flex-direction: column; align-items: center; }
+
+.dot-number {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: #c3a469;
+    margin-bottom: 8px;
+    opacity: 0;
+    transition: 0.3s;
+    transform: translateY(10px);
+}
+
+.dot-circle {
+    width: 10px;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    border: 1px solid rgba(195, 164, 105, 0.4);
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.page-dot-container:hover .dot-number,
+.page-dot-container.active .dot-number {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.page-dot-container.active .dot-circle {
+    background: #fff;
+    width: 14px;
+    height: 14px;
+    box-shadow: 0 0 15px #c3a469;
+}
+
+/* UI อื่นๆ */
+.v2-explore-btn {
+    pointer-events: all;
+    background: white;
+    color: black;
+    border: none;
+    padding: 14px 35px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.v2-explore-btn:hover { background: #c3a469; color: white; }
+
+/* Mobile Support */
+@media (max-width: 768px) {
+    .pl-ceramic-plate-v3 { width: 120px; height: 120px; filter: brightness(1); }
+    .v2-title-mid { font-size: 3rem; }
+    .canvas-container { touch-action: pan-y; }
+    .dish-pagination-v4 { gap: 5px; }
+    .page-dot-container { padding: 15px 8px; }
+}
+/* การตั้งค่าพื้นฐาน */
+.app-container {
+    width: 100vw;
+    height: 100vh;
+    background: #0a0a0a;
+    overflow: hidden;
+    position: relative;
+    color: white;
+}
+
+/* --- หน้าแรก (Landing) --- */
+@keyframes float {
+    0% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(1deg); }
+    100% { transform: translateY(0px) rotate(0deg); }
+}
+
+.pl-floating-plate-unit {
+    position: absolute;
+    will-change: transform;
+    cursor: pointer;
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    animation: float 5s ease-in-out infinite;
+}
+
+.pl-ceramic-plate-v3 {
+    width: 220px;
+    height: 220px;
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    box-shadow: 0 15px 45px rgba(0,0,0,0.7);
+    filter: brightness(0.8);
+    transition: all 0.5s ease;
+    border: 2px solid rgba(195, 164, 105, 0.2);
+}
+
+.pl-floating-plate-unit:hover .pl-ceramic-plate-v3 {
+    filter: brightness(1.1) blur(0px);
+    transform: scale(1.1);
+    border: 3px solid #c3a469;
+}
+
+/* ฟอนต์หรูหรา 3 ชั้น */
+.hero-title-v2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 0.9;
+    margin: 20px 0;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.9);
+}
+
+.v2-title-top { font-size: 1.5rem; letter-spacing: 12px; color: #c3a469; font-weight: 300; }
+.v2-title-mid { font-size: clamp(3rem, 8vw, 6rem); font-weight: 900; letter-spacing: -2px; color: #fff; margin: 15px 0; }
+.v2-title-bot { font-size: 1.2rem; letter-spacing: 20px; color: #c3a469; }
+
+.scroll-text-v2-btn {
+    margin-top: 35px;
+    display: inline-block;
+    font-size: 1rem;
+    letter-spacing: 4px;
+    color: #c3a469;
+    cursor: pointer;
+    padding: 15px 35px;
+    border: 2px solid #c3a469;
+    transition: 0.4s;
+    pointer-events: all;
+}
+
+.scroll-text-v2-btn:hover { background: #c3a469; color: #000; box-shadow: 0 0 20px rgba(195, 164, 105, 0.4); }
+
+/* --- หน้า Experience --- */
+.main-ui-overlay-v2 {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none; /* ตัวครอบห้ามบล็อกเมาส์ */
+}
+
+/* Pagination ใหม่ หรูและกดได้ */
+.dish-pagination-v3 {
+    position: absolute;
+    bottom: 5vh;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    pointer-events: all !important;
+}
+
+.page-item-v3 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.4s;
+    opacity: 0.3;
+}
+
+.page-item-v3:hover, .page-item-v3.active { opacity: 1; }
+.page-number-v3 { font-size: 0.7rem; color: #c3a469; margin-bottom: 5px; }
+.page-line-v3 { width: 2px; height: 12px; background: #c3a469; transition: 0.4s; }
+.page-item-v3.active .page-line-v3 { height: 25px; background: white; }
+
+/* ปุ่ม Detail */
+.v2-explore-btn {
+    pointer-events: all;
+    background: white;
+    color: black;
+    border: none;
+    padding: 12px 30px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+/* Modal Responsive */
+.modal-grid-premium-no-border {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+
+@media (max-width: 768px) {
+    .modal-grid-premium-no-border { grid-template-columns: 1fr; }
+    .pl-ceramic-plate-v3 { width: 120px; height: 120px; filter: brightness(1); }
+    .canvas-container { touch-action: pan-y; }
+}
+.ui-top-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40px 60px;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  pointer-events: none; /* เพื่อให้ยังสามารถคลิกทะลุไปหมุนจานได้ */
+}
+
+.ui-top-meta span, .v2-home-btn {
+  pointer-events: all; /* เฉพาะปุ่มและตัวอักษรให้รับการคลิกได้ */
+}
+
+.v2-home-btn {
+  background: none;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: #fff;
+  padding: 8px 16px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+}
+
+.v2-home-btn:hover {
+  background: #fff;
+  color: #000;
+  border-color: #fff;
+}
+
+/* ปรับแต่ง Container ของปุ่มกดด้านล่าง */
+.ui-bottom-bar { 
+    margin-top: auto; 
+    display: flex; 
+    flex-direction: column; /* จัดให้ปุ่มอยู่บน ตัวเลขอยู่ล่าง */
+    align-items: center; 
+    gap: 30px; /* เพิ่มระยะห่างระหว่างปุ่มกับตัวเลข */
+    padding-bottom: 5vh; /* ดันขึ้นมาจากขอบจอเล็กน้อย */
+}
+
+/* ปรับระยะปุ่ม VIEW DETAILS */
+.v2-explore-btn {
+    pointer-events: auto; 
+    background: #fff; 
+    color: #000; 
+    border: none;
+    padding: 18px 45px; 
+    font-weight: 900; 
+    letter-spacing: 4px; 
+    font-size: 0.75rem;
+    cursor: pointer; 
+    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* เพิ่มเงาให้ปุ่มลอยเด่น */
+}
+
+/* ปรับระยะห่างของตัวเลข Pagination (Dish-pagination) */
+.dish-pagination-v3 {
+    position: relative; /* เปลี่ยนจาก absolute เป็น relative เพื่อให้ไหลตาม flex flow */
+    bottom: 0; 
+    left: 0;
+    transform: none; 
+    display: flex; 
+    gap: 20px; 
+    pointer-events: all !important;
+}
+
+/* เส้นขีดใต้ตัวเลขให้ดูสมดุลขึ้น */
+.page-line-v3 { 
+    width: 2px; 
+    height: 8px; 
+    background: #c3a469; 
+    margin-top: 5px;
+    transition: 0.4s; 
+}
+
+.page-item-v3.active .page-line-v3 { 
+    height: 20px; 
+    background: white; 
+}
+/* การจัดวางจานในหน้าแรกให้มีชื่อใต้ภาพ */
+.pl-floating-plate-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.1s ease-out;
+}
+
+.plate-name-label {
+  color: #c3a469;
+  font-family: 'Playfair Display', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 15px;
+  opacity: 0.7;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  transition: all 0.3s ease;
+}
+
+.pl-floating-plate-unit:hover .plate-name-label {
+  opacity: 1;
+  color: #fff;
+  transform: translateY(5px);
+}
+
+/* Scroll Hint Style */
+.scroll-hint-v2 {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+  transition: opacity 0.8s ease;
+}
+
+.landing-screen.started .scroll-hint-v2 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.mouse-icon {
+  width: 22px;
+  height: 38px;
+  border: 2px solid rgba(195, 164, 105, 0.4);
+  border-radius: 12px;
+  position: relative;
+}
+
+.wheel {
+  width: 3px;
+  height: 7px;
+  background-color: #c3a469;
+  border-radius: 2px;
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-wheel-anim 1.6s infinite;
+}
+
+@keyframes scroll-wheel-anim {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 15px); }
+}
+
+.scroll-hint-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 4px;
+  color: #c3a469;
+  text-transform: uppercase;
+  font-weight: 300;
+}
+/* --- Landing Page Styling --- */
+.pl-floating-plate-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.plate-name-label {
+  color: #c3a469;
+  font-family: 'Playfair Display', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 15px;
+  opacity: 0.7;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  transition: all 0.3s ease;
+}
+
+.pl-floating-plate-unit:hover .plate-name-label {
+  opacity: 1;
+  color: #fff;
+  transform: translateY(3px);
+}
+
+/* Scroll Hint: Landing (Center) */
+.scroll-hint-v2 {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+  transition: opacity 0.8s ease;
+}
+
+.landing-screen.started .scroll-hint-v2 {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* --- Experience Page Styling --- */
+
+/* Scroll Hint: Experience (Bottom Right) */
+.experience-scroll-hint {
+  position: absolute;
+  right: 60px;
+  bottom: 140px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0.5;
+  pointer-events: none;
+  animation: fade-in-hint 1.5s ease-out forwards;
+}
+
+.exp-hint-text {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  letter-spacing: 3px;
+  color: #c3a469;
+  text-transform: uppercase;
+}
+
+/* Mouse Icons Shared Style */
+.mouse-icon, .exp-mouse-icon {
+  border: 1.5px solid rgba(195, 164, 105, 0.4);
+  border-radius: 10px;
+  position: relative;
+}
+
+.mouse-icon { width: 22px; height: 38px; }
+.exp-mouse-icon { width: 16px; height: 28px; }
+
+.wheel, .exp-wheel {
+  background-color: #c3a469;
+  border-radius: 2px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.wheel { width: 3px; height: 7px; top: 6px; animation: scroll-anim 1.6s infinite; }
+.exp-wheel { width: 2px; height: 5px; top: 4px; animation: scroll-anim 1.8s infinite; }
+
+@keyframes scroll-anim {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 12px); }
+}
+
+@keyframes fade-in-hint {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 0.5; transform: translateX(0); }
+}
+
+/* Common UI adjustments */
+.main-ui-overlay-v2 {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  pointer-events: none;
+}
+
+.main-ui-overlay-v2 > * {
+  pointer-events: auto;
+}
+/* --- UI Structure --- */
+.bottom-controls-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 35px;
+}
+
+/* การวางซ้อนแนวตั้งของ Pagination และ Hint */
+.pagination-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Scroll Hint ใต้ตัวเลข */
+.experience-scroll-hint-under {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  opacity: 0.5;
+  animation: fade-in-up 1.2s ease-out;
+}
+
+.exp-hint-text-small {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 8px;
+  letter-spacing: 2px;
+  color: #c3a469;
+  text-transform: uppercase;
+}
+
+.exp-mouse-icon-small {
+  width: 14px;
+  height: 24px;
+  border: 1.2px solid rgba(195, 164, 105, 0.4);
+  border-radius: 7px;
+  position: relative;
+}
+
+.exp-wheel-small {
+  width: 2px;
+  height: 4px;
+  background-color: #c3a469;
+  border-radius: 1px;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-hint-anim 1.8s infinite;
+}
+
+@keyframes scroll-hint-anim {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 10px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 0.5; transform: translateY(0); }
+}
+
+/* ชื่อใต้รูปภาพหน้าแรก */
+.plate-name-label {
+  color: #c3a469;
+  font-family: 'Playfair Display', serif;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 15px;
+  opacity: 0.7;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+  transition: 0.3s ease;
+}
+
+.pl-floating-plate-unit:hover .plate-name-label {
+  opacity: 1;
+  color: #fff;
+}
+
+/* จัดแนว Pagination เดิม */
+.dish-pagination-v3 {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+/* การวางซ้อนแนวตั้งของ Pagination และ Hint */
+.pagination-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 45px; /* เพิ่มระยะห่างตรงนี้เพื่อให้ Hint ขยับลงมา */
+  margin-top: 20px;
+}
+
+/* Scroll Hint ใต้ตัวเลข */
+.experience-scroll-hint-under {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  opacity: 0.6;
+  animation: fade-in-up 1.2s ease-out;
+}
+
+.exp-hint-text-small {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px; /* ปรับให้ใหญ่นิดหน่อยให้อ่านง่ายขึ้น */
+  letter-spacing: 3px;
+  color: #c3a469;
+  text-transform: uppercase;
+}
+
+.exp-mouse-icon-small {
+  width: 16px;
+  height: 28px;
+  border: 1.5px solid rgba(195, 164, 105, 0.4);
+  border-radius: 8px;
+  position: relative;
+}
+
+.exp-wheel-small {
+  width: 2px;
+  height: 5px;
+  background-color: #c3a469;
+  border-radius: 1px;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: scroll-hint-anim 1.8s infinite;
+}
+
+/* Keyframes สำหรับขยับลูกกลิ้งเมาส์ */
+@keyframes scroll-hint-anim {
+  0% { opacity: 0; transform: translate(-50%, 0); }
+  30% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, 12px); }
+}
+
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 0.6; transform: translateY(0); }
+}
+
+/* ส่วนที่เหลืออื่นๆ ของ UI ยังคงเดิม */
+.bottom-controls-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  padding-bottom: 30px;
+}
+/* 1. ปรับ Container หลักให้ชิดขอบล่างมากขึ้น */
+.ui-bottom-bar { 
+    position: absolute;
+    bottom: 1.5vh;      /* ปรับลดจาก 3vh เหลือ 1.5vh เพื่อให้ชิดขอบล่างสุด */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    gap: 15px;          /* ลดช่องว่างรวมลงเพื่อประหยัดพื้นที่แนวตั้ง */
+    width: 100%;
+    pointer-events: none;
+}
+/* 2. จัดการกลุ่มปุ่มและ Pagination */
+.bottom-controls-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;          /* ลดจาก 30px เหลือ 15px เพื่อให้ปุ่มไม่ลอยสูง */
+    pointer-events: auto;
+}
+
+/* 3. จัดระยะห่างระหว่างตัวเลขกับคำว่า Scroll ให้พอดี */
+.pagination-stack {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;           /* ปรับให้ชิดกันมากขึ้น */
+    margin-top: 0px;    /* ลบ margin ออก */
+}
+/* 4. ปรับขนาดปุ่ม [ OPEN ] ให้กะทัดรัดขึ้น (Optional) */
+.v2-explore-btn {
+    background: #fff; 
+    color: #000; 
+    border: none;
+    padding: 15px 40px; /* ลดความหนาของปุ่มลงเล็กน้อย */
+    font-weight: 900; 
+    letter-spacing: 3px; 
+    font-size: 0.7rem;
+    cursor: pointer; 
+    transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+    text-transform: uppercase;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
