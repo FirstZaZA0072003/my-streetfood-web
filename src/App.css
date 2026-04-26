@@ -1967,3 +1967,58 @@ video::-webkit-media-controls-panel {
     text-transform: uppercase;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+/* --- แก้ไขหน้า Landing เฉพาะบนมือถือ --- */
+@media (max-width: 768px) {
+  /* ปรับ Container ให้เป็น Grid เพื่อจัดระเบียบจาน */
+  .pl-parallax-container {
+    display: grid !important;
+    /* แบ่งเป็น 3 คอลัมน์ เท่าๆ กัน */
+    grid-template-columns: repeat(3, 1fr); 
+    /* เว้นระยะห่างระหว่างจาน */
+    gap: 15px; 
+    padding: 80px 20px 20px 20px; /* เว้นที่ว่างด้านบนให้ตัวหนังสือ Hero */
+    align-content: start; /* เริ่มจัดวางจากด้านบน */
+    overflow-y: auto; /* ให้เลื่อนดูจานที่เหลือได้ถ้าจอเล็กมาก */
+    pointer-events: auto !important;
+  }
+
+  /* ยกเลิกตำแหน่ง Absolute เดิมที่ทำให้จานทับกัน */
+  .pl-floating-plate-unit {
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    transform: none !important; /* ปิด parallax บนมือถือเพื่อความเป๊ะ */
+    width: 100% !important;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 5 !important;
+  }
+
+  /* ปรับขนาดจานให้เล็กลงพอดีกับ 3 คอลัมน์ */
+  .pl-ceramic-plate-v3 {
+    width: 80px !important;
+    height: 80px !important;
+    border-width: 3px !important;
+  }
+
+  /* ปรับชื่อเมนูใต้จาน */
+  .plate-name-label {
+    font-size: 8px !important;
+    margin-top: 8px !important;
+    white-space: normal !important; /* ยอมให้ตัดบรรทัดถ้าชื่อยาว */
+    line-height: 1.2;
+    opacity: 1 !important; /* ให้เห็นชื่อตลอดเวลาบนมือถือ */
+  }
+
+  /* ปรับ Hero Box (ตัวหนังสือกลางจอ) ไม่ให้ไปบังจานที่อยู่ด้านหลัง */
+  .hero-box_v2 {
+    position: relative;
+    z-index: 10;
+    margin-top: 20px;
+    pointer-events: none; /* กดทะลุตัวหนังสือไปจิ้มจานได้ */
+  }
+}
+
+/* --- ส่วนที่เหลือ (Desktop) ให้คงเดิมไว้ --- */
