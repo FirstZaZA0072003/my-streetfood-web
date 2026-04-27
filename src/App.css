@@ -2225,85 +2225,927 @@ body, html { margin: 0; padding: 0; overflow: hidden; background: var(--black); 
    2. ส่วนใหม่ (Mobile Only) - ปรับเฉพาะในมือถือ
    ============================================================ */
 /* --- ส่วนเดิม (คงไว้) --- */
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,400&family=Prompt:wght@100;300;400;600;900&display=swap');
-:root { --gold: #c3a469; --black: #050505; }
-body, html { margin: 0; padding: 0; overflow: hidden; background: var(--black); color: #fff; font-family: 'Prompt', sans-serif; }
-
-/* --- ส่วนแก้ปัญหา MOBILE ONLY --- */
+/* ============================================================
+   MOBILE-ONLY FIX (มีผลเฉพาะหน้าจอแคบกว่า 768px)
+   ============================================================ */
 @media screen and (max-width: 768px) {
-  /* 1. เลเยอร์ครอบทั้งหมด ต้องโปร่งแสงต่อแรงกด (Pointer Events) */
+  
+  /* 1. ซ่อนปุ่มโฮมเดิมที่อยู่มุมขวาบน (เพราะเราย้ายลงล่างแล้ว) */
+  .ui-top-meta .v2-home-btn {
+    display: none !important;
+  }
+
+  /* 2. ปรับเลเยอร์ UI หลักให้รับแรงกดในส่วนที่จำเป็น */
   .main-ui-overlay-v2 {
-    position: absolute !important;
-    inset: 0 !important;
-    z-index: 5000 !important;
-    pointer-events: none !important; /* บังคับให้คลิกทะลุพื้นที่ว่าง */
+    z-index: 9999 !important;
+    pointer-events: none !important; /* พื้นที่ว่างกดทะลุได้ */
   }
 
-  /* 2. ส่วนบน: ปุ่ม Back to Home */
-  .ui-top-meta {
-    padding: 15px 20px !important;
-    pointer-events: auto !important; /* เปิดโซนให้กดได้ */
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    z-index: 6000 !important;
-  }
-
-  .v2-home-btn {
-    pointer-events: auto !important;
-    padding: 12px 18px !important;
-    background: rgba(255, 255, 255, 0.2) !important;
-    border: 1px solid var(--gold) !important;
-    border-radius: 4px;
-    z-index: 7000 !important;
-  }
-
-  /* 3. ส่วนล่าง: ปุ่ม OPEN และ Pagination */
-  .ui-bottom-bar {
-    bottom: 2vh !important;
-    pointer-events: none !important;
-  }
-
+  /* 3. เปิดโซนควบคุมด้านล่างให้รับนิ้วมือได้ 100% */
   .bottom-controls-group {
-    pointer-events: auto !important; /* เปิดโซนให้กดได้ */
+    pointer-events: auto !important; 
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    z-index: 6000 !important;
+    gap: 12px !important; /* เว้นระยะปุ่ม Open กับปุ่ม Home */
+    z-index: 10000 !important;
   }
 
-  .v2-explore-btn {
-    width: 90vw !important;
-    padding: 18px 0 !important;
-    background: #fff !important;
+  /* 4. สไตล์ปุ่ม Home ใหม่ (เฉพาะในมือถือ) */
+  .v2-home-btn-bottom {
+    display: block !important; /* บังคับโชว์ */
+    width: auto;
+    background: rgba(0, 0, 0, 0.7) !important;
+    border: 1px solid var(--gold) !important;
+    color: var(--gold) !important;
+    padding: 10px 25px !important;
+    font-size: 10px !important;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    backdrop-filter: blur(8px);
+    text-transform: uppercase;
+    cursor: pointer;
+    pointer-events: auto !important;
+    z-index: 10001;
+  }
+
+  .v2-home-btn-bottom:active {
+    background: var(--gold) !important;
     color: #000 !important;
-    z-index: 7000 !important;
+  }
+
+  /* 5. ปรับพื้นที่เลขหน้าให้นิ้วจิ้มง่ายขึ้น */
+  .page-item-v3 {
+    padding: 15px 10px !important;
     pointer-events: auto !important;
   }
 
-  /* 4. แก้ปัญหา Pagination 01-09 กดไม่ได้และพื้นที่น้อย */
-  .dish-pagination-v3 {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 5px !important;
-    margin-top: 10px !important;
+  /* 6. ขยับความสูงของแถบล่างในมือถือให้พอดี */
+  .ui-bottom-bar {
+    bottom: 3vh !important;
+    pointer-events: none !important;
+  }
+}
+@media screen and (max-width: 768px) {
+  
+  /* ปรับปุ่ม VIEW DETAILS ให้บางและดูแพงขึ้น */
+  .v2-explore-btn {
+    width: auto !important; /* เลิกใช้ 85vw เพื่อไม่ให้มันเต็มจอจนเกินไป */
+    min-width: 220px !important; /* กำหนดขนาดขั้นต่ำพอ */
+    padding: 12px 25px !important; /* ลดความหนาลง (Padding) */
+    
+    background: rgba(255, 255, 255, 0.05) !important; /* เปลี่ยนจากสีขาวทึบ เป็นขาวโปร่งแสงจางๆ */
+    border: 1px solid rgba(255, 255, 255, 0.4) !important; /* ใส่เส้นขอบบางๆ */
+    color: #fff !important; /* อักษรขาว */
+    
+    font-size: 10px !important; /* ลดขนาดตัวอักษรลงเล็กน้อย */
+    letter-spacing: 3px !important; /* เว้นระยะตัวอักษรให้ดู Cinematic */
+    backdrop-filter: blur(10px); /* เพิ่มความเบลอข้างหลังปุ่มให้ดูแพง */
+    
+    border-radius: 2px; /* มุมโค้งมนเล็กน้อยพองาม */
+    margin-bottom: 5px !important;
+  }
+
+  /* เอฟเฟกต์ตอนนิ้วจิ้ม (Active) */
+  .v2-explore-btn:active {
+    background: var(--gold) !important;
+    color: #000 !important;
+    border-color: var(--gold) !important;
+    transform: scale(0.98);
+  }
+
+  /* ปรับตำแหน่งกลุ่มปุ่มให้ดูสมดุล */
+  .bottom-controls-group {
+    gap: 12px !important;
+    padding-bottom: 10px;
+  }
+}
+@media screen and (max-width: 768px) {
+
+  /* 1. ดันกลุ่ม UI ด้านล่างทั้งหมดขึ้นมาจากขอบจอ */
+  .ui-bottom-bar {
+    bottom: 8vh !important; /* เพิ่มจาก 4vh เป็น 8vh เพื่อให้เลขไม่ชิดขอบ */
+    pointer-events: none !important;
+  }
+
+  /* 2. จัดระเบียบกลุ่มปุ่มและตัวเลข */
+  .bottom-controls-group {
     pointer-events: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 18px !important; /* เพิ่มระยะห่างระหว่างปุ่ม Open / ปุ่ม Home / ตัวเลข */
+  }
+
+  /* 3. ปรับปุ่ม VIEW DETAILS (OPEN) ให้เล็กลงและดูแพง */
+  .v2-explore-btn {
+    width: auto !important;
+    min-width: 200px !important; /* ขนาดกะทัดรัดขึ้น */
+    padding: 10px 25px !important; /* ลดความหนา */
+    background: rgba(255, 255, 255, 0.08) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    color: #fff !important;
+    font-size: 9px !important;
+    letter-spacing: 3px !important;
+    backdrop-filter: blur(10px);
+    border-radius: 2px;
+  }
+
+  /* 4. ปรับปุ่ม BACK TO HOME ในมือถือ */
+  .v2-home-btn-bottom {
+    display: block !important;
+    background: none !important;
+    border: 1px solid var(--gold) !important;
+    color: var(--gold) !important;
+    padding: 8px 20px !important;
+    font-size: 9px !important;
+    letter-spacing: 2px;
+    border-radius: 4px;
+    margin-top: -5px; /* ดึงให้ชิดกับปุ่มบนเล็กน้อย */
+  }
+
+  /* 5. จัดการตัวเลข Pagination ไม่ให้ชิดกันเกินไป */
+  .dish-pagination-v3 {
+    gap: 15px !important;
+    margin-top: 15px !important;
+  }
+
+  .page-number-v3 {
+    font-size: 0.75rem !important; /* ขนาดตัวเลขชัดเจนขึ้น */
+    color: var(--gold);
   }
 
   .page-item-v3 {
-    padding: 15px 8px !important; /* เพิ่มพื้นที่สัมผัส */
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 4px;
-    pointer-events: auto !important;
-    z-index: 7000 !important;
+    padding: 10px 5px !important; /* เพิ่มพื้นที่กดรอบตัวเลข */
+  }
+  
+  /* 6. ปรับชื่ออาหารในมือถือให้พอดีไม่ทับจาน */
+  .v2-dish-name {
+    font-size: 2.5rem !important;
+    margin-bottom: 5px !important;
+  }
+}
+@media screen and (max-width: 768px) {
+
+  /* 1. ขยับกลุ่ม UI ที่วงสีฟ้าลงมาด้านล่าง */
+  .ui-bottom-bar {
+    /* ปรับลดจาก 8vh เหลือ 4vh เพื่อให้ทั้งแผงขยับลงล่าง */
+    bottom: 4vh !important; 
+    pointer-events: none !important;
   }
 
-  /* --- ส่วนหน้าแรก (Landing) --- */
-  .pl-parallax-container {
-    display: grid !important;
-    grid-template-columns: repeat(3, 1fr) !important;
-    gap: 10px !important;
-    padding: 30px 10px !important;
+  /* 2. จัดการระยะห่างระหว่างปุ่มให้กระชับขึ้น ไม่ให้กินพื้นที่ขึ้นไปหาจาน */
+  .bottom-controls-group {
     pointer-events: auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important; /* ลดช่องว่างระหว่างปุ่มให้ดูเรียบร้อยขึ้น */
+  }
+
+  /* 3. ปรับปุ่ม VIEW DETAILS ให้บางลงอีกนิด */
+  .v2-explore-btn {
+    min-width: 240px !important; 
+    padding: 10px 20px !important; 
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+    margin-bottom: 2px !important;
+  }
+
+  /* 4. ปรับปุ่ม BACK TO HOME */
+  .v2-home-btn-bottom {
+    padding: 8px 25px !important;
+    font-size: 8px !important;
+    opacity: 0.8;
+  }
+
+  /* 5. ส่วนตัวเลข Pagination */
+  .dish-pagination-v3 {
+    gap: 12px !important;
+    margin-top: 10px !important;
+  }
+
+  .page-number-v3 {
+    font-size: 0.7rem !important;
+  }
+
+  /* 6. ขยับจานอาหารขึ้นไปนิดนึง (ถ้าจำเป็น) */
+  /* อันนี้จะช่วยให้จานไม่ดูเหมือนโดนปุ่มทับ */
+  .canvas-container {
+    transform: translateY(-5vh); 
+  }
+}
+@media screen and (max-width: 768px) {
+  
+  /* 1. จัดระเบียบ Header ให้เรียงแนวนอนสวยๆ */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: row !important; /* บังคับเรียงแนวนอน */
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 10px 15px !important;
+    gap: 10px !important;
+  }
+
+  /* 2. บังคับให้เมนู STORY / GALLERY อยู่บรรทัดเดียวกัน */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important; /* แนวนอนบรรทัดเดียว */
+    align-items: center !important;
+    gap: 20px !important; /* ระยะห่างระหว่าง 2 หัวข้อ */
+    flex: 1;
+    justify-content: center;
+  }
+
+  /* 3. ลดขนาดฟอนต์หัวข้อให้กะทัดรัด */
+  .tab-btn {
+    font-size: 11px !important; /* ลดขนาดลง */
+    letter-spacing: 1px !important;
+    white-space: nowrap !important; /* กันตัวหนังสือตกบรรทัด */
+    opacity: 0.3;
+    padding: 5px 0 !important;
+    background: none !important;
+    border: none !important;
+  }
+
+  /* สไตล์ตัวที่เลือก (Active) */
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 1.5px solid var(--gold) !important; /* ขีดล่างบางๆ */
+  }
+
+  /* 4. ปรับส่วนชื่อสถานที่ (BANGKOK) ให้เล็กลงไม่ไปเบียดเมนู */
+  .modal-header-new span:first-child {
+    font-size: 8px !important;
+    max-width: 60px;
+    line-height: 1.2;
+  }
+}@media screen and (max-width: 768px) {
+  
+  /* 1. จัด Header ใหม่ให้เรียงเป็นแนวนอนบรรทัดเดียวทั้งหมด */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: row !important; /* บังคับเรียงแนวนอนบรรทัดเดียว */
+    justify-content: space-between !important; /* กระจาย ซ้าย-กลาง-ขวา */
+    align-items: center !important;
+    padding: 12px 15px !important;
+    background: #080808 !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  /* 2. จัดการ BANGKOK / THAILAND ให้เป็นบรรทัดเดียว */
+  .modal-header-new span:first-child {
+    font-size: 8px !important;
+    letter-spacing: 1px !important;
+    white-space: nowrap !important; /* ห้ามขึ้นบรรทัดใหม่ */
+    display: flex !important;
+    gap: 5px; /* ระยะห่างระหว่างคำ */
+    color: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0; /* กันไม่ให้โดนบีบจนเบี้ยว */
+  }
+
+  /* 3. จัดการ STORY / GALLERY (ตรงกลาง) */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important; /* แนวนอน */
+    justify-content: center !important;
+    gap: 15px !important;
+    flex: 1; /* ให้กินพื้นที่ตรงกลาง */
+  }
+
+  .tab-btn {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.5px !important;
+    white-space: nowrap !important; /* ห้ามตัวหนังสือตกบรรทัด */
+    opacity: 0.2;
+    padding: 2px 0 !important;
+    border: none !important;
+    background: none !important;
+    transition: 0.3s;
+  }
+
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 1.5px solid var(--gold) !important;
+  }
+
+  /* 4. ปุ่ม [X] CLOSE (ขวาสุด) */
+  .close-btn {
+    font-size: 8px !important;
+    padding: 5px 10px !important;
+    background: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  
+  /* 1. จัด Header ใหม่ให้เรียงเป็นแนวนอนบรรทัดเดียวทั้งหมด */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: row !important; /* บังคับเรียงแนวนอนบรรทัดเดียว */
+    justify-content: space-between !important; /* กระจาย ซ้าย-กลาง-ขวา */
+    align-items: center !important;
+    padding: 12px 15px !important;
+    background: #080808 !important;
+    gap: 10px !important;
+    width: 100% !important;
+  }
+
+  /* 2. จัดการ BANGKOK / THAILAND ให้เป็นบรรทัดเดียว */
+  .modal-header-new span:first-child {
+    font-size: 8px !important;
+    letter-spacing: 1px !important;
+    white-space: nowrap !important; /* ห้ามขึ้นบรรทัดใหม่ */
+    display: flex !important;
+    gap: 5px; /* ระยะห่างระหว่างคำ */
+    color: rgba(255, 255, 255, 0.5);
+    flex-shrink: 0; /* กันไม่ให้โดนบีบจนเบี้ยว */
+  }
+
+  /* 3. จัดการ STORY / GALLERY (ตรงกลาง) */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important; /* แนวนอน */
+    justify-content: center !important;
+    gap: 15px !important;
+    flex: 1; /* ให้กินพื้นที่ตรงกลาง */
+  }
+
+  .tab-btn {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1.5px !important;
+    white-space: nowrap !important; /* ห้ามตัวหนังสือตกบรรทัด */
+    opacity: 0.2;
+    padding: 2px 0 !important;
+    border: none !important;
+    background: none !important;
+    transition: 0.3s;
+  }
+
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 1.5px solid var(--gold) !important;
+  }
+
+  /* 4. ปุ่ม [X] CLOSE (ขวาสุด) */
+  .close-btn {
+    font-size: 8px !important;
+    padding: 5px 10px !important;
+    background: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. บังคับให้ Header เรียงเป็นแถวแนวนอนบรรทัดเดียว */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: row !important; /* บังคับแนวนอน */
+    justify-content: space-between !important; /* กระจาย ซ้าย-กลาง-ขวา */
+    align-items: center !important;
+    padding: 10px 15px !important;
+    height: 60px !important;
+    gap: 10px;
+    background: #080808 !important;
+  }
+
+  /* 2. จัดการ BANGKOK / THAILAND (ฝั่งซ้าย) */
+  .modal-header-new span:first-child {
+    font-size: 8px !important;
+    letter-spacing: 1px !important;
+    white-space: nowrap !important; /* ห้ามขึ้นบรรทัดใหม่ */
+    color: #fff;
+    flex-shrink: 0;
+  }
+
+  /* 3. จัดการ STORY / GALLERY (ตรงกลาง) */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important; /* แนวนอน */
+    justify-content: center !important;
+    gap: 15px !important; /* ระยะห่างระหว่างหัวข้อ */
+    flex: 1;
+  }
+
+  .tab-btn {
+    font-size: 10px !important;
+    letter-spacing: 1.5px !important;
+    white-space: nowrap !important;
+    opacity: 0.3;
+    padding: 5px 0 !important;
+    background: none !important;
+    border: none !important;
+    color: #fff;
+  }
+
+  /* ตัวที่เลือก (Active) ให้มีขีดล่างเหมือนในคอม */
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 1.5px solid var(--gold) !important;
+  }
+
+  /* 4. จัดการปุ่ม [X] CLOSE (ฝั่งขวา) */
+  .close-btn {
+    font-size: 8px !important;
+    padding: 5px 10px !important;
+    background: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff;
+    white-space: nowrap;
+    flex-shrink: 0;
+    border-radius: 2px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. ปรับ Header ให้เรียงซ้อนกันเป็นแนวตั้ง (Column) */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: column !important; /* บังคับเรียงจากบนลงล่าง */
+    align-items: center !important;
+    padding: 15px 10px !important;
+    gap: 12px !important; /* ระยะห่างระหว่างแถวบนกับแถวล่าง */
+    background: #080808 !important;
+    position: relative;
+    border-bottom: 1px solid rgba(195, 164, 105, 0.1);
+  }
+
+  /* 2. แถวบน: BANGKOK / THAILAND */
+  .modal-header-new span:first-child {
+    font-size: 9px !important;
+    letter-spacing: 2px !important;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.8;
+    width: 100%;
+    text-align: center; /* จัดให้อยู่กลางบรรทัดบน */
+  }
+
+  /* 3. แถวที่สอง: STORY / GALLERY และปุ่ม CLOSE */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important; /* เรียงเมนูแนวนอน */
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important; /* เว้นระยะห่าง Story กับ Gallery ให้กดง่าย */
+    width: 100%;
+  }
+
+  .tab-btn {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    opacity: 0.3;
+    padding: 5px 0 !important;
+    border: none !important;
+    background: none !important;
+    color: #fff;
+  }
+
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 2px solid var(--gold) !important; /* ขีดล่างหนาขึ้นนิดหน่อยให้ชัดเจน */
+  }
+
+  /* 4. ปุ่ม [X] CLOSE ย้ายไปอยู่มุมขวา (Absolute) เพื่อไม่ให้เบียดเมนูตรงกลาง */
+  .close-btn {
+    position: absolute !important;
+    right: 15px;
+    bottom: 12px; /* ให้อยู่ระดับเดียวกับบรรทัด Story/Gallery */
+    font-size: 8px !important;
+    padding: 5px 10px !important;
+    background: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.15) !important;
+    color: #fff;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. จัด Header ให้เรียงเป็นแนวตั้ง (Stack) เพื่อแยกบรรทัด */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: center !important;
+    padding: 20px 15px !important;
+    background: #0a0a0a !important;
+    gap: 15px !important; /* ระยะห่างระหว่างบรรทัดบนและล่าง */
+    position: relative;
+    border-bottom: 1px solid rgba(195, 164, 105, 0.15);
+  }
+
+  /* 2. บรรทัดบน: BANGKOK / THAILAND */
+  .modal-header-new span:first-child {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    font-size: 10px !important;
+    letter-spacing: 3px !important;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 5px;
+  }
+
+  /* 3. บรรทัดล่าง: STORY และ GALLERY เรียงต่อกัน */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important; /* เว้นระยะห่างให้กดง่าย ไม่ติดกันเกินไป */
+    width: 100%;
+  }
+
+  .tab-btn {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    color: #fff !important;
+    opacity: 0.3;
+    padding: 5px 0 !important;
+    border: none !important;
+    background: none !important;
+    white-space: nowrap !important;
+  }
+
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 2px solid var(--gold) !important; /* ขีดล่างเน้นตัวที่เลือก */
+  }
+
+  /* 4. ปุ่มปิด [X] CLOSE: ย้ายไปที่มุมขวาบนสุด ไม่ให้ขวางทางสายตา */
+  .close-btn {
+    position: absolute !important;
+    top: 15px;
+    right: 15px;
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border-radius: 2px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. ปรับ Header ให้เป็นแนวตั้ง 2 บรรทัด และจัดระเบียบใหม่ */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: column !important; /* แยกบรรทัดบน-ล่าง */
+    align-items: center !important;
+    padding: 20px 15px !important;
+    background: #0a0a0a !important;
+    gap: 15px !important; /* ระยะห่างระหว่าง 2 บรรทัด */
+    position: relative;
+    border-bottom: 1px solid rgba(195, 164, 105, 0.15);
+  }
+
+  /* 2. บรรทัดแรก: BANGKOK / THAILAND (อยู่กึ่งกลาง) */
+  .modal-header-new span:first-child {
+    display: block !important;
+    font-size: 10px !important;
+    letter-spacing: 3px !important;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: center;
+    width: 100%;
+    opacity: 0.9;
+  }
+
+  /* 3. บรรทัดที่สอง: STORY และ GALLERY (เรียงแนวนอนแบบมีระยะห่าง) */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 35px !important; /* เพิ่มช่องว่างให้ STORY กับ GALLERY ไม่ติดกัน */
+    width: 100%;
+  }
+
+  .tab-btn {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    color: #fff !important;
+    opacity: 0.3; /* ตัวที่ยังไม่ได้เลือกให้จางลงเพื่อให้ดูออกว่ากดได้ */
+    padding: 5px 0 !important;
+    background: none !important;
+    border: none !important;
+    white-space: nowrap !important;
+    transition: 0.3s ease;
+  }
+
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 2px solid var(--gold) !important; /* ขีดล่างชัดเจน */
+  }
+
+  /* 4. ปุ่มปิด [X] CLOSE (ย้ายหนีไปมุมขวาบนสุด ไม่ให้ทับตัวหนังสือ) */
+  .close-btn {
+    position: absolute !important;
+    top: 15px; /* ดันขึ้นไปมุมบน */
+    right: 15px; /* ดันไปขวาสุด */
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    z-index: 10;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. ปรับการจัดวางบรรทัดแรกให้ชิดซ้าย */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: flex-start !important; /* เปลี่ยนจาก center เป็น flex-start เพื่อให้ลูกๆ ชิดซ้าย */
+    padding: 20px 20px !important; /* เพิ่ม padding ซ้ายให้ดูไม่ติดขอบจอเกินไป */
+    background: #0a0a0a !important;
+    gap: 15px !important;
+    position: relative;
+    border-bottom: 1px solid rgba(195, 164, 105, 0.15);
+  }
+
+  /* 2. ขยับ BANGKOK / THAILAND ไปทางซ้าย */
+  .modal-header-new span:first-child {
+    display: block !important;
+    font-size: 10px !important;
+    letter-spacing: 3px !important;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: left !important; /* บังคับชิดซ้าย */
+    width: 100% !important;
+    opacity: 0.9;
+    margin-bottom: 5px;
+  }
+
+  /* 3. ส่วน STORY และ GALLERY (ถ้ายังอยากให้อยู่ตรงกลางหน้าจอเหมือนเดิม) */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important; /* รักษาความสมดุลให้เมนูอยู่กลาง */
+    align-items: center !important;
+    gap: 35px !important;
+    width: 100%;
+  }
+
+  /* 4. ปุ่มปิด [X] CLOSE (อยู่ที่เดิมมุมขวาบน) */
+  .close-btn {
+    position: absolute !important;
+    top: 18px; /* ปรับระดับให้ตรงกับบรรทัดแรกพอดี */
+    right: 20px;
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border-radius: 2px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. จัด Header เป็นแนวตั้ง 2 บรรทัด */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: flex-start !important; /* บังคับให้ส่วนประกอบข้างในเริ่มจากซ้าย */
+    padding: 20px 20px !important;
+    background: #0a0a0a !important;
+    gap: 15px !important;
+    position: relative;
+    border-bottom: 1px solid rgba(195, 164, 105, 0.15);
+  }
+
+  /* 2. BANGKOK / THAILAND ขยับชิดซ้าย */
+  .modal-header-new span:first-child {
+    display: block !important;
+    font-size: 10px !important;
+    letter-spacing: 2px !important;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: left !important; /* ชิดซ้าย */
+    width: auto !important; /* ไม่กินพื้นที่เต็ม เพื่อไม่ให้ไปทับปุ่มปิด */
+    opacity: 0.9;
+  }
+
+  /* 3. STORY / GALLERY อยู่ที่เดิม (กึ่งกลางบรรทัดที่สอง) */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important; /* บังคับให้อยู่กึ่งกลางหน้าจอเหมือนเดิม */
+    align-items: center !important;
+    gap: 35px !important;
+    width: 100%; /* ใช้ความกว้างเต็มเพื่อให้กึ่งกลางหน้าจอเป๊ะๆ */
+  }
+
+  .tab-btn {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    color: #fff !important;
+    opacity: 0.3;
+    padding: 5px 0 !important;
+    border: none !important;
+    background: none !important;
+    white-space: nowrap !important;
+  }
+
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 2px solid var(--gold) !important;
+  }
+
+  /* 4. ปุ่มปิด [X] CLOSE ไว้มุมขวาบนเหมือนเดิม */
+  .close-btn {
+    position: absolute !important;
+    top: 18px; /* ปรับให้ขนานกับบรรทัด BANGKOK */
+    right: 20px;
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border-radius: 2px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. จัด Header เป็นแนวตั้ง 2 บรรทัด */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: column !important; 
+    align-items: flex-start !important; /* บรรทัดแรกเริ่มจากซ้าย */
+    padding: 20px 20px !important;
+    background: #0a0a0a !important;
+    gap: 15px !important;
+    position: relative;
+    border-bottom: 1px solid rgba(195, 164, 105, 0.15);
+    width: 100% !important;
+  }
+
+  /* 2. บรรทัดบน: BANGKOK ขยับซ้าย */
+  .modal-header-new span:first-child {
+    display: block !important;
+    font-size: 10px !important;
+    letter-spacing: 2px !important;
+    color: var(--gold);
+    text-transform: uppercase;
+    text-align: left !important;
+    width: auto !important;
+    opacity: 0.9;
+  }
+
+  /* 3. บรรทัดที่สอง: STORY / GALLERY จัดกึ่งกลางหน้าจอเป๊ะๆ */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important; /* บังคับให้อยู่กลางแนวนอน */
+    align-items: center !important;
+    gap: 40px !important; /* เพิ่มระยะห่างให้ดูชัดเจน ไม่ติดกันเกินไป */
+    width: 100% !important; /* ต้องเต็ม 100% เพื่อให้อ้างอิงจุดกึ่งกลางหน้าจอได้ */
+    margin: 0 auto !important; /* มั่นใจว่าตัวมันเองอยู่กลาง */
+  }
+
+  .tab-btn {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    color: #fff !important;
+    opacity: 0.3;
+    padding: 8px 0 !important;
+    background: none !important;
+    border: none !important;
+    white-space: nowrap !important;
+    cursor: pointer;
+  }
+
+  /* ขีดล่างสีทองตัวที่ Active */
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 2px solid var(--gold) !important;
+  }
+
+  /* 4. ปุ่มปิด [X] CLOSE ไว้มุมขวาบนเหมือนเดิม */
+  .close-btn {
+    position: absolute !important;
+    top: 18px;
+    right: 20px;
+    font-size: 8px !important;
+    padding: 4px 8px !important;
+    background: rgba(255, 255, 255, 0.05) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    color: #fff !important;
+    border-radius: 2px;
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. จัดการตัวหุ้ม (Container) ให้ขยายเต็มหน้าจอเพื่อจัดกลางได้เป๊ะ */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important; /* จัดกึ่งกลางหน้าจอแนวนอน */
+    align-items: center !important;
+    gap: 40px !important; /* เว้นระยะห่าง Story กับ Gallery */
+    width: 100% !important;
+    margin-top: -10px !important; /* ขยับขึ้นไปข้างบนตามที่สั่ง */
+    position: relative;
+    z-index: 10;
+  }
+
+  /* 2. ปรับตัวปุ่ม STORY / GALLERY */
+  .tab-btn {
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    color: #fff !important;
+    opacity: 0.3;
+    padding: 0px 0 10px 0 !important; /* ปรับ Padding ล่างเพื่อให้ขีดทองอยู่ตำแหน่งที่สวย */
+    background: none !important;
+    border: none !important;
+    white-space: nowrap !important;
+  }
+
+  /* 3. ขีดล่างสีทองตัวที่ Active */
+  .tab-btn.active {
+    opacity: 1 !important;
+    color: var(--gold) !important;
+    border-bottom: 2px solid var(--gold) !important;
+  }
+
+  /* 4. ปรับ Header ส่วน BANGKOK ให้มีพื้นที่ด้านล่างลดลง */
+  .modal-header-new {
+    padding-bottom: 5px !important; /* ลดช่องว่างเพื่อให้ Story ขยับขึ้นไปได้ง่ายขึ้น */
+  }
+}
+@media screen and (max-width: 768px) {
+  /* 1. จัด Header ให้เป็นแถวเดียว และกระจายเนื้อหาซ้าย-ขวา */
+  .modal-header-new {
+    display: flex !important;
+    flex-direction: row !important; /* บังคับแถวแนวนอน */
+    justify-content: space-between !important; /* ดันชื่อไปซ้าย ดันปุ่มปิดไปขวา */
+    align-items: center !important; /* จัดให้อยู่กึ่งกลางความสูงของช่อง */
+    padding: 10px 15px !important;
+    background: #080808 !important;
+    border-bottom: 1px solid rgba(195, 164, 105, 0.2);
+    width: 100% !important;
+    height: 60px !important; /* ล็อคความสูงช่องให้ดูสวยงาม */
+  }
+
+  /* 2. จัดการชื่อ BANGKOK / THAILAND (ฝั่งซ้าย) */
+  .modal-header-new span:first-child {
+    font-size: 10px !important; /* ปรับขนาดให้พอดีพื้นที่ */
+    letter-spacing: 1px !important;
+    white-space: nowrap !important; /* ห้ามตัวหนังสือตกบรรทัด */
+    color: #fff;
+    font-weight: 500;
+  }
+
+  /* 3. จัดการปุ่ม [X] CLOSE (ฝั่งขวา) */
+  .close-btn {
+    position: static !important; /* ยกเลิกการลอยตัวเพื่อให้กลับมาอยู่ในแถว */
+    font-size: 9px !important;
+    padding: 5px 12px !important;
+    background: none !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    color: #fff !important;
+    border-radius: 2px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  /* 4. STORY / GALLERY (ถ้ามี ให้ขยับมาอยู่ตรงกลางระหว่างซ้ายกับขวา) */
+  .modal-tabs-container {
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 15px !important;
+    flex: 1; /* ให้กินพื้นที่ตรงกลาง */
+    margin: 0 !important;
+  }
+
+  .tab-btn {
+    font-size: 10px !important;
+    letter-spacing: 1px !important;
+    opacity: 0.3;
+  }
+
+  .tab-btn.active {
+    opacity: 1 !important;
+    border-bottom: 1.5px solid var(--gold) !important;
   }
 }

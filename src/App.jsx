@@ -264,15 +264,23 @@ export default function App() {
         {isStarted && (
           <div className="main-ui-overlay-v2">
             <div className="ui-top-meta">
-              <span>TRADITIONAL HERITAGE — 2026</span>
-              <button className="v2-home-btn" onClick={goBackHome}>
-                [ BACK TO HOME ]
-              </button>
+              <div className="meta-left">
+                <span>TRADITIONAL HERITAGE — 2026</span>
+                {/* ในมือถือเลขหน้าจะอยู่ตรงนี้ แต่ในคอมจะอยู่ตรงกลางจอตามเดิม */}
+                {isMobile && <span className="mobile-count">COLLECTION {currentIndex + 1}/9</span>}
+              </div>
+
+              {/* แสดงปุ่ม Home เฉพาะบน Desktop เท่านั้น (isMobile เป็น false) */}
+              {!isMobile && (
+                <button className="v2-home-btn" onClick={(e) => { e.stopPropagation(); goBackHome(); }}>
+                  [ BACK TO HOME ]
+                </button>
+              )}
             </div>
 
             <div className="ui-mid-content">
               <div className="dish-info-main">
-                <span className="collection-count">COLLECTION {currentIndex + 1}/10</span>
+                <span className="collection-count">COLLECTION {currentIndex + 1}/9</span>
                 <h2 className="v2-dish-name">{FOOD_COLLECTIONS[currentIndex]?.displayName}</h2>
                 <p className="v2-dish-sub">{FOOD_COLLECTIONS[currentIndex]?.subName}</p>
                 <div className="v2-separator"></div>
@@ -281,31 +289,47 @@ export default function App() {
 
             <div className="ui-bottom-bar">
               <div className="bottom-controls-group">
-                <button className="v2-explore-btn" onClick={() => { setSelectedMenu(FOOD_COLLECTIONS[currentIndex]); setActiveTab('story'); }}>
+                {/* 1. ปุ่มเปิดดูรายละเอียด - โชว์ทุกอุปกรณ์ปกติ */}
+                <button
+                  className="v2-explore-btn"
+                  onClick={() => { setSelectedMenu(FOOD_COLLECTIONS[currentIndex]); setActiveTab('story'); }}
+                >
                   VIEW DETAILS & STORY — [ OPEN ]
                 </button>
 
-                <div className="pagination-stack">
+                {/* 2. ปุ่ม BACK TO HOME - ใช้เงื่อนไข isMobile เพื่อให้โชว์ "เฉพาะบนมือถือ" เท่านั้น */}
+                {isMobile && (
+                  <button
+                    className="v2-home-btn-bottom"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      goBackHome();
+                    }}
+                  >
+                    [ BACK TO HOME ]
+                  </button>
+                )}
 
-             
+                <div className="pagination-stack">
                   <div className="dish-pagination-v3">
                     {FOOD_COLLECTIONS.map((_, idx) => (
                       <div
                         key={idx}
                         className={`page-item-v3 ${currentIndex === idx ? 'active' : ''}`}
                         onClick={(e) => {
-                          e.stopPropagation(); // สำคัญ: กันไม่ให้เหตุการณ์หลุดไปที่อื่น
+                          e.stopPropagation();
                           moveToIndex(idx);
                         }}
                       >
                         <span className="page-number-v3">
-                          {/* บังคับให้แสดงเลขตามลำดับ 01, 02, 03... */}
                           {(idx + 1).toString().padStart(2, '0')}
                         </span>
                       </div>
                     ))}
                   </div>
 
+                  {/* Scroll Hint เล็กๆ ด้านล่างตัวเลข */}
                   {!selectedMenu && (
                     <div className="experience-scroll-hint-under">
                       <span className="exp-hint-text-small">SCROLL TO CHANGE DISH</span>
