@@ -3182,3 +3182,64 @@ body, html { margin: 0; padding: 0; overflow: hidden; background: var(--black); 
     background: #080808 !important;
   }
 }
+@media screen and (max-width: 768px) {
+  
+  /* 1. ปลดล็อค Container ให้เลื่อนได้ทั้งหน้า */
+  .modal-overlay {
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+    display: block !important; /* เปลี่ยนจาก flex เป็น block เพื่อให้เนื้อหาต่อกันเป็นแนวยาว */
+  }
+
+  .modal-content-premium {
+    height: auto !important; /* สำคัญ: ให้สูงตามเนื้อหาจริง */
+    min-height: 100vh;
+    display: block !important; /* ให้ของข้างในเรียงต่อกันลงมา */
+    overflow: visible !important;
+    width: 100% !important;
+    background: #050505 !important;
+  }
+
+  /* 2. จัดการรูปภาพให้เป็นส่วนหนึ่งของเนื้อหา (จะเลื่อนขึ้นไปพร้อมกัน) */
+  .modal-visual-side-smooth {
+    width: 100% !important;
+    height: 350px !important; /* ปรับความสูงรูปตามความเหมาะสม */
+    position: relative !important; /* ให้ขยับตามการเลื่อนปกติ */
+    display: block !important;
+    flex: none !important;
+  }
+
+  .modal-main-img-smooth {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    mask-image: none !important; /* เอา mask ออกเพื่อให้รูปเต็มใบ */
+    border-radius: 0; /* ถ้าอยากได้แบบสไลด์เต็มหน้าจอ */
+  }
+
+  /* 3. ส่วนเนื้อหาที่ต่อท้ายรูปภาพ */
+  .modal-info-side {
+    width: 100% !important;
+    height: auto !important;
+    padding: 30px 25px !important;
+    display: block !important;
+    overflow: visible !important; /* ห้ามมี scroll แยกข้างใน */
+    background: #050505 !important;
+  }
+
+  /* 4. จัดระเบียบหัวข้อให้เรียบร้อย */
+  .modal-title-main {
+    font-size: 2.5rem !important;
+    margin: 20px 0 !important;
+    line-height: 1.2 !important;
+  }
+
+  /* 5. Header (Bangkok/Story) ให้ล็อคไว้บนสุดเสมอ (Sticky) */
+  .modal-header-new {
+    position: sticky !important;
+    top: 0;
+    z-index: 1000;
+    background: rgba(8, 8, 8, 0.95);
+    backdrop-filter: blur(10px); /* ใส่เบลอเฉพาะแถบเมนูเล็กๆ เพื่อความสวยงาม */
+  }
+}
