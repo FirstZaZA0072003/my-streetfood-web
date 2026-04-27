@@ -3149,3 +3149,36 @@ body, html { margin: 0; padding: 0; overflow: hidden; background: var(--black); 
     border-bottom: 1.5px solid var(--gold) !important;
   }
 }
+@media screen and (max-width: 768px) {
+
+  /* 1. ลบเบลอที่หน้าต่างรายละเอียด (Modal) */
+  .modal-overlay {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.96) !important; /* ใช้ดำทึบแทนเพื่อความลื่น */
+  }
+
+  /* 2. ลบเบลอที่ปุ่ม OPEN และปุ่ม Home ล่าง */
+  .v2-explore-btn, 
+  .v2-home-btn-bottom {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #ffffff !important; /* ปุ่ม OPEN เป็นสีขาวทึบจะกดติดมือกว่า */
+    color: #000 !important;
+  }
+
+  /* 3. ลบเบลอที่แถบเมนูข้าง (ถ้ามี) */
+  .nav-navigation-group, 
+  .nav-side-fixed-btn {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: rgba(10, 10, 10, 0.95) !important;
+  }
+
+  /* 4. ลบเบลอส่วนหัว Modal (BANGKOK / STORY) */
+  .modal-header-new {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    background: #080808 !important;
+  }
+}
