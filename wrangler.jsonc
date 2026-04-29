@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "my-street-food",
+  "name": "streetfood-web",
   "compatibility_date": "2026-04-26",
   "observability": {
     "enabled": true
